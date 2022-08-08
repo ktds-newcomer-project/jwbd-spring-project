@@ -1,0 +1,11 @@
+.test-page-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.test-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+}
