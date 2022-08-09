@@ -3,12 +3,11 @@ import { useEffect, useState } from "react"
 
 import { useNavigate } from "react-router-dom"
 import './style.css'
-import ktds from '../../assets/ktds.jpg'
-import QnA from '../../assets/QnA.jpg'
+import ktds from '../../assets/ktds.png'
 
 
 const Navbar = () => {
-
+  
   const [authorized, setAuthorized] = useState(false);
 //   const [dropDown, setDropDown] = useState(false);
 //   const [userPic, setUserPic] = useState('')
@@ -35,7 +34,7 @@ const Navbar = () => {
 
   return (
     <nav>
-      <Link className="home" to="/">
+      <Link className="home" to="/home">
         <img src={ktds} alt="logo" className="logo" />
       </Link>
 
@@ -53,7 +52,7 @@ const Navbar = () => {
             } */}
           </div>
           :
-          <Link className="login" to="/signin">
+          <Link className="login" to="/">
             <p className="login-text">로그인</p>
           </Link>
         }
@@ -85,6 +84,7 @@ const Navbar = () => {
 
       </div>
     </nav>
+
   )
 }
 export default Navbar;

@@ -9,72 +9,75 @@ nav {
     height: 60px;
     padding-top: 5px;
     padding-bottom: 5px;
-    background-color: white;
+    background-color: #66E4BE;
     box-shadow: 0 2px 4px 0 hsl(0deg 0% 81% / 50%);
     
 }
-    .home {
-      text-decoration: none;
-      color: black;
-      margin-left: 20px;
-    }
-  
-    .login {
-      text-decoration: none;
-      color: black;
-      margin-right: 20px;
-    }
-    
-    .login-text {
-      margin-right: 40px;
-      margin-top: 48.75px;
-      /* padding-top: 38px; */
-      text-decoration: none;
-      color: black;
-      font-family: 'GmarketSansBold';
-      font-size: 20px;
-    }
-  
-    .login_text:hover {
-      cursor: pointer;
-      transform: scale(1.05);
-    }
-  
-    .navbar-profile-image {
-      width: 50px;
-      height: 50px;
-      float: right;
-      position: fixed;
-      top: 10px;
-      right: 0px;
-      margin-right: 47.5px;
-    }
-  
-    .navbar_dropdown_content {
-      position: relative;
-      z-index : 2;
-      background-color: #121010;
-      opacity: 0.39;
-      width: 100px;
-      text-align: center;
-      padding: 5px;
-      float: right;
-      top: 85px;
-      right: 20px;
-      border-radius: 10%;
-    }
-  
-    .navbar_dropdown_content_element {
-      margin: 8px;
-    }
-  
-    .navbar_dropdown_button {
-      background-color: #121010;
-      color: white;
-      border: none;
-      font-family : 'GmarketSansLight';
-    }
-  
-  
-  
-  
+.logo {
+  width: 100px;
+  height: 40px;
+}
+.home {
+  text-decoration: none;
+  color: black;
+  margin-left: 20px;
+}
+
+.login {
+  text-decoration: none;
+  color: black;
+  margin-right: 20px;
+}
+
+.login-text {
+  margin-right: 40px;
+  margin-top: 48.75px;
+  /* padding-top: 38px; */
+  text-decoration: none;
+  color: black;
+  font-family: 'GmarketSansBold';
+  font-size: 20px;
+}
+
+.login_text:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+.navbar-profile-image {
+  width: 50px;
+  height: 50px;
+  float: right;
+  position: fixed;
+  top: 10px;
+  right: 0px;
+  margin-right: 47.5px;
+}
+
+.navbar_dropdown_content {
+  position: relative;
+  z-index : 2;
+  background-color: #121010;
+  opacity: 0.39;
+  width: 100px;
+  text-align: center;
+  padding: 5px;
+  float: right;
+  top: 85px;
+  right: 20px;
+  border-radius: 10%;
+}
+
+.navbar_dropdown_content_element {
+  margin: 8px;
+}
+
+.navbar_dropdown_button {
+  background-color: #121010;
+  color: white;
+  border: none;
+  font-family : 'GmarketSansLight';
+}
+
+
+

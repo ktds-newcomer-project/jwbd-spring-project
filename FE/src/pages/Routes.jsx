@@ -6,12 +6,14 @@ import TestPage from './TestPage'
 
 const Routes = () => {
   return (
+  <>
     <ReactRouterRoutes>
-      <Route path='/' element={<HomePage />} />
-      <Route path="/signin" element={<SignInPage />} />
+      <Route path="/" element={<SignInPage />} />
+      <Route path='/home' element={<HomePage />} />
       <Route path="/test" element={<TestPage />} />
 
     </ReactRouterRoutes>
+  </>
   )
 }
-export default Routes;
+export default Routes;  
