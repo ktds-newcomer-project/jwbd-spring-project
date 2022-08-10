@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString(exclude = {"member", "problem"})
 public class MemberProblem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

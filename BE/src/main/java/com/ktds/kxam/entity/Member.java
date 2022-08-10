@@ -4,16 +4,18 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString(exclude = "roleSet")
 public class Member {
     @Id
-    private Long subun;
+    private Long sabun;
 
     @Column(nullable = false, length = 8)
     private String mpw;
@@ -21,7 +23,19 @@ public class Member {
     @Column(nullable = false, length = 5)
     private String name;
 
-    @Column(nullable = false)
-    @ColumnDefault("0")
-    private int type; // 0 : 관리자, 9 : 이용자
+    @ElementCollection(fetch = FetchType.LAZY)
+    @Builder.Default
+    private Set<MemberRole> roleSet = new HashSet<>();
+
+    public void addRole(MemberRole memberRole) {
+        this.roleSet.add(memberRole);
+    }
+
+    public void clearRoles() {
+        this.roleSet.clear();
+    }
+
+    public void changePassword(String mpw) {
+        this.mpw = mpw;
+    }
 }
