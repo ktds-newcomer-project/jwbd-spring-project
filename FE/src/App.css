@@ -1,4 +1,4 @@
 .body {
-    margin-top:7%;
-
+    padding: 4%;
+    padding: min(100px);
 }

@@ -1,14 +1,19 @@
-import { Link } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
 import { useEffect, useState } from "react"
-
+import { useStore } from "../../states.js"
 import { useNavigate } from "react-router-dom"
 import './style.css'
 import ktds from '../../assets/ktds.png'
 
 
 const Navbar = () => {
-  
+  const { setUserToken, userToken } = useStore();
   const [authorized, setAuthorized] = useState(false);
+  const onClickLogout = () => {
+    setUserToken('')
+    localStorage.removeItem('isLogin')
+    Navigate('/')
+  }
 //   const [dropDown, setDropDown] = useState(false);
 //   const [userPic, setUserPic] = useState('')
 //   const navigate = useNavigate();
@@ -33,7 +38,7 @@ const Navbar = () => {
   
 
   return (
-    <nav>
+    <nav className="navbar-body">
       <Link className="home" to="/home">
         <img src={ktds} alt="logo" className="logo" />
       </Link>
@@ -53,7 +58,7 @@ const Navbar = () => {
           </div>
           :
           <Link className="login" to="/">
-            <p className="login-text">로그인</p>
+            <p className="login-text" onClick={onClickLogout} >로그아웃</p>
           </Link>
         }
 

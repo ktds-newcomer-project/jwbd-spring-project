@@ -1,7 +1,8 @@
 nav {
     position: fixed;
+    font-family: 'GangwonEduPowerExtraBoldA';
     width: 100%;
-    z-index: 9999;
+    z-index: 1;
     top:0;
     display: flex;
     justify-content: space-between;
@@ -33,9 +34,7 @@ nav {
   margin-right: 40px;
   margin-top: 48.75px;
   /* padding-top: 38px; */
-  text-decoration: none;
   color: black;
-  font-family: 'GmarketSansBold';
   font-size: 20px;
 }
 

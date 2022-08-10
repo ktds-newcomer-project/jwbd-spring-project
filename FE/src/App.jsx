@@ -3,24 +3,31 @@ import './App.css'
 import Routes from './pages/Routes'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-
+import { useStore } from './states.js'
 
 
 function App() {
 
+  const { userToken } = useStore();
   
   return (
     <>
-    { (localStorage.getItem("isLogin")) ?
-    <Navbar />
+    { (userToken || localStorage.getItem("isLogin")) ?
+    <>
+      <Navbar />
+      <div className="body">
+        <Routes />
+      </div>
+    </>
     :
-    null
-    }
-
-    <div className="body">
+    <div>
       <Routes />
     </div>
-    <Footer />
+    }
+
+    <div style={{height: "100%"}}>
+      <Footer />
+    </div>
 
     </>
 

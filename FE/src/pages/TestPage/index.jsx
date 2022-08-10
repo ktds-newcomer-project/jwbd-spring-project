@@ -3,9 +3,16 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
 import './style.css'
+import { useStore } from '../../states'
 
 
 const TestPage = () => {
+  const  { userToken } = useStore();
+
+  const hoho = () => {
+    alert(userToken)
+  }
+
   const testList = [
     { label: 'JAVA WEB 테스트', testCode: 82256975 },
     { label: 'Python WEB 테스트', testCode: 82256954 },
@@ -29,6 +36,7 @@ const TestPage = () => {
 
             renderInput={(params) => <TextField {...params} label="테스트 항목" />}
             />
+            <button onClick={hoho}>zzz</button>
             <Button style={{ marginLeft : "2vw", height:"40px"}} variant="outlined" size="small">테스트 보러가기</Button>
           </div>
        </div>
