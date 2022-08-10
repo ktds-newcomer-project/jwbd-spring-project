@@ -2,7 +2,7 @@ package com.ktds.kxam.dto;
 
 public class MemberDTO {
 
-    private Long sabun;
+    private String sabun;
 
     private Long mpw;
 
