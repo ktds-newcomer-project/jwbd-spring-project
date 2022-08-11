@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface TagRepo extends JpaRepository<Tag, Long> {
@@ -22,4 +21,7 @@ public interface TagRepo extends JpaRepository<Tag, Long> {
     @Transactional
     @Query("update Tag t set t.tagName =:tagName where t.tagId = :tagId ")
     void modifyTagName(@Param("tagId") Long tagId, @Param("tagName") String tagName);
+
+    @Query("select t from Tag t inner join ProblemTagHash pth on t.tagId = pth.tag.tagId and pth.problem.pid = :pid")
+    List<Tag> findTagByProblem(@Param("pid") Long pid);
 }
