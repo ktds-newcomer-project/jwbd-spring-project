@@ -1,6 +1,7 @@
 package com.ktds.kxam.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -24,6 +25,7 @@ public class MemberProblem {
     @Column(columnDefinition = "LONGTEXT")
     private String userAnswer;
 
+    @ColumnDefault("false")
     @Column(nullable = false)
     private boolean isCollect;
 
