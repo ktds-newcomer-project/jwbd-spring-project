@@ -24,4 +24,7 @@ public class MemberProblem {
     @Column(columnDefinition = "LONGTEXT")
     private String userAnswer;
 
+    @Column(nullable = false)
+    private boolean isCollect;
+
 }
