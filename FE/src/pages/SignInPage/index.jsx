@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useLayoutEffect } from 'react';
 import { useStore } from '../../states.js';
 import { useNavigate } from 'react-router-dom';
 import './style.css'
@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 
 const SigninPage = () => {
     const { userToken, setUserToken } = useStore();
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (localStorage.getItem('isLogin') || userToken ) {
             Swal.fire({
                 icon: 'error',
@@ -61,6 +61,8 @@ const SigninPage = () => {
     const buttonStyle1 = {backgroundColor : "#66E4BE",width:"25%", height:"6.5%",fontSize:"17px", minWidth : '120px',minHeight: "40px"}
     
     return (
+        <>
+        { (!localStorage.getItem('isLogin')) ?
         <div className='signin-main-div'>
             <div className='signin-left-div'>
                 <p>KT ds X(Human-resource) Automation Management</p>
@@ -86,6 +88,8 @@ const SigninPage = () => {
             </div>
            
         </div>
+        : null }
+        </>
     );
 };
 
