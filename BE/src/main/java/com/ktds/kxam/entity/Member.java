@@ -34,8 +34,4 @@ public class Member {
     public void clearRoles() {
         this.roleSet.clear();
     }
-
-    public void changePassword(String mpw) {
-        this.mpw = mpw;
-    }
 }
