@@ -26,4 +26,14 @@ public interface ProblemRepo extends JpaRepository<Problem, Long> {
 
     @Query("select pth.problem from ProblemTagHash pth where pth.tag.tagId = :tagId")
     List<Problem> findProblemsByTagId(@Param("tagId") Long tagId);
+
+    @Modifying
+    @Transactional
+    @Query("update Problem p set p.isDelete = case p.isDelete when true then false else true end where p.pid = :pid")
+    void updateIsDelete(@Param("pid") Long pid);
+
+    @Modifying
+    @Transactional
+    @Query("update Problem p set p.reasonOfDelete = :reason where p.pid = :pid")
+    void updateReasonOfDelete(@Param("pid")Long pid, @Param("reason")String reason);
 }
