@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Log4j2
 public class MemberService {
-    private MemberRepo memberRepo;
+    private final MemberRepo memberRepo;
 
 
 }
