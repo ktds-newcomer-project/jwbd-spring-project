@@ -24,6 +24,6 @@ public interface ProblemRepo extends JpaRepository<Problem, Long> {
     @Query("select p from Problem p where p.test.tid = :testId")
     List<Problem> findProblemsByTestId(@Param("testId") Long testId);
 
-    @Query("select p from Problem p inner join ProblemTagHash pth on p.pid = pth.problem.pid and pth.tag.tagId = :tagId")
+    @Query("select pth.problem from ProblemTagHash pth where pth.tag.tagId = :tagId")
     List<Problem> findProblemsByTagId(@Param("tagId") Long tagId);
 }

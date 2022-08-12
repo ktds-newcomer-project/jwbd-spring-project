@@ -19,7 +19,4 @@ public interface MemberRepo extends JpaRepository<Member, String> {
     @Transactional
     @Query("update Member m set m.mpw =:mpw where m.sabun = :sabun ")
     void updatePassword(@Param("sabun") String sabun, @Param("mpw") String password);
-
-    @Query("select distinct m from Member m inner join MemberProblem mp on m.sabun = mp.member.sabun and mp.problem.test.tid = :tid")
-    List<Member> findMembersByTest(@Param("tid")Long tid);
 }

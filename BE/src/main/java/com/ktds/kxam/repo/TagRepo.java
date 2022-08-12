@@ -22,6 +22,6 @@ public interface TagRepo extends JpaRepository<Tag, Long> {
     @Query("update Tag t set t.tagName =:tagName where t.tagId = :tagId ")
     void modifyTagName(@Param("tagId") Long tagId, @Param("tagName") String tagName);
 
-    @Query("select t from Tag t inner join ProblemTagHash pth on t.tagId = pth.tag.tagId and pth.problem.pid = :pid")
+    @Query("select pth.tag from ProblemTagHash pth where pth.problem.pid = :pid")
     List<Tag> findTagsByProblem(@Param("pid") Long pid);
 }
