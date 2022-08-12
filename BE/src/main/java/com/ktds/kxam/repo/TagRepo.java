@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface TagRepo extends JpaRepository<Tag, Long> {
 
-    int countTagByTagName(String name);
+    int countTagsByTagName(String name);
 
     List<Tag> findTagsByTagNameContaining(String tagName);
 
@@ -23,5 +23,5 @@ public interface TagRepo extends JpaRepository<Tag, Long> {
     void modifyTagName(@Param("tagId") Long tagId, @Param("tagName") String tagName);
 
     @Query("select t from Tag t inner join ProblemTagHash pth on t.tagId = pth.tag.tagId and pth.problem.pid = :pid")
-    List<Tag> findTagByProblem(@Param("pid") Long pid);
+    List<Tag> findTagsByProblem(@Param("pid") Long pid);
 }
