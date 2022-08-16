@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -53,15 +54,15 @@ public class ProblemController {
     }
 
     @Operation(description = "시험 id로 문제 조회")
-    @GetMapping("/find-by/test")
-    public @ResponseBody CommonResult findProblemByTestId(@RequestParam ReqProblemByTestDTO reqProblemByTestDTO) throws Exception{
-        List<Problem> result = problemService.findProblemsByTestId(reqProblemByTestDTO);
+    @GetMapping(value = "/find-by/test")
+    public @ResponseBody ListResult<Problem> findProblemByTestId(@RequestParam("tid")Long tid, @RequestParam("validateKey")String validateKey) throws Exception{
+        List<Problem> result = problemService.findProblemsByTestId(tid, validateKey);
         return responseService.getListResult(result);
     }
 
     @Operation(description = "태그 id로 문제 조회")
-    @GetMapping("/find-by/tag")
-    public @ResponseBody CommonResult findProblemByTag(@RequestParam("tagId") Long tagId) throws Exception{
+    @GetMapping(value = "/find-by/tag", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody ListResult<Problem> findProblemByTag(@RequestParam("tagId") Long tagId) throws Exception{
         List<Problem> result = problemService.findProblemsByTag(tagId);
         return responseService.getListResult(result);
     }

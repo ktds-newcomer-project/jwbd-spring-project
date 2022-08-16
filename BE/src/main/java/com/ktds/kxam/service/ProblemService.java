@@ -1,11 +1,9 @@
 package com.ktds.kxam.service;
 
 import com.ktds.kxam.dto.ProblemDTO;
-import com.ktds.kxam.dto.ReqProblemByTestDTO;
 import com.ktds.kxam.entity.Problem;
 import com.ktds.kxam.exception.ApiMessageException;
 import com.ktds.kxam.repo.ProblemRepo;
-import com.ktds.kxam.repo.ProblemTagHashRepo;
 import com.ktds.kxam.repo.TestRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -65,10 +63,13 @@ public class ProblemService {
             throw new ApiMessageException("보기 수정에 실패하였습니다.");
     }
 
-    public List<Problem> findProblemsByTestId(ReqProblemByTestDTO reqProblemByTestDTO){
-        String validateKey = testRepo.findValidateKeyByTest(reqProblemByTestDTO.getTid());
-        if(validateKey!=null && !validateKey.equals(reqProblemByTestDTO.getValidateKey())) throw new ApiMessageException("비밀번호가 일치하지 않습니다.");
-        List<Problem> result = problemRepo.findProblemsByTestId(reqProblemByTestDTO.getTid());
+    public List<Problem> findProblemsByTestId(Long tid, String validateKey){
+        String originValidateKey = testRepo.findValidateKeyByTest(tid);
+        if(originValidateKey!=null && !originValidateKey.equals(validateKey)) throw new ApiMessageException("비밀번호가 일치하지 않습니다.");
+        log.info("찾기 전");
+        List<Problem> result = problemRepo.findProblemsByTestId(tid);
+        log.info("결과 크기 : " + result.size());
+        log.info(result.get(0));
         if(result.size() == 0) throw new ApiMessageException("등록된 문제를 찾을 수 없습니다.");
         return result;
     }
