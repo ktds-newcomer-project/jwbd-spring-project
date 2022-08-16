@@ -22,7 +22,7 @@ const TestPage = () => {
     setArr(Array(questions.length).fill())
     const id = setInterval(() => {
       let date1 = moment();
-      let date2 = moment("2022-08-12T17:29:00+09:00");
+      let date2 = moment("2022-08-16T10:27:10+09:00");
       date1.format(); // 2021-10-09T00:44:52+09:00
       date2.format(); // 2020-04-08T00:00:00+09:00
       const dateDis = date2.diff(date1)

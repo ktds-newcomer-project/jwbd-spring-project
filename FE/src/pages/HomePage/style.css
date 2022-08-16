@@ -52,4 +52,21 @@
 .pre-test-div {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
+.more-button {
+    background-color: white;
+    color: rgb(93, 93, 243);
+    border: none;
+    font-size: large;
+    float: right;
+    margin-right: 4%;
+    margin-left: auto;
+    margin-bottom: 2%;
+  }
+  .more-button:hover {
+    /* transform: translateY(-10px); */
+    transform: scale(1.15);
+    transition: all .4s;
+    cursor: pointer;
+  }

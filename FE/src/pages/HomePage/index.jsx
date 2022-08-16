@@ -16,12 +16,35 @@ import Python from '../../assets/python.png';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import Autocomplete from '@mui/material/Autocomplete';
+import { useEffect } from 'react';
 
 const HomePage = () => {
     const { userToken } = useStore();
     const [inputValue, setInputValue] = useState('');
+    const [ boxNum, setBoxNum ] = useState(2);
+    const [ alTestBox, setAlTestBox ] = useState([]);
+    const [ showMore, setShowMore ] = useState(false);
 
     const navigate = useNavigate()
+
+    useEffect(() => {
+      const testList = [
+        { subject: Java, label: 'JAVA WEB 테스트', dueDate: "2022-08-18", testCode: 82256975 },
+        { subject: Python,label: 'Python WEB 테스트', dueDate: "2022-08-20", testCode: 82256954 },
+        { subject: Python,label: 'Spider WEB 테스트', dueDate: "2022-08-27", testCode: 82256978 },
+        { subject: Sap, label: 'SAP WEB 테스트', dueDate: "2022-08-07", testCode: 82256946 },
+        { subject: Java, label: 'JPA WEB 테스트', dueDate: "2022-08-24", testCode: 82256934 },
+        { subject: Java, label: 'StacrCraft WEB 테스트', dueDate: "2022-08-12", testCode: 82246857 },
+        { subject: Sap, label: '황새오래걷기 WEB 테스트', dueDate: "2022-08-15", testCode: 82267857 }
+      ]
+
+      setAlTestBox(testList.slice(0,3))
+      if (testList.length > 3) {
+        setShowMore(true)
+      }
+
+    },[])
+
     const settings = {
         dots: true,
         infinite: true,
@@ -34,20 +57,33 @@ const HomePage = () => {
         fade: true,
       };
     
+    const dpAlTestBox = () => {
+      setAlTestBox(testList.slice(0,(3*boxNum)))
+      if (testList.length <= 3*boxNum) {
+        setShowMore(false)
+        console.log(testList)
+      }else{
+        setBoxNum(boxNum+1)
+      }
+    }
+
+    
+
     const buttonStyle1 = {color: 'white', backgroundColor : "#66E4BE",width:"25%", height:"6.5%",fontSize:"17px", minWidth : '150px',minHeight: "40px"}
     const slideStyle = {width: '100%'}
     const testList = [
-      { label: 'JAVA WEB 테스트', testCode: 82256975 },
-      { label: 'Python WEB 테스트', testCode: 82256954 },
-      { label: 'Spider WEB 테스트', testCode: 82256978 },
-      { label: 'JPA WEB 테스트', testCode: 82256934 },
-      { label: 'SAP WEB 테스트', testCode: 82256946 },
-      { label: 'StacrCraft WEB 테스트', testCode: 82246857 },
-      { label: '황새오래걷기 WEB 테스트', testCode: 82267857 }
+      { subject: Java, label: 'JAVA WEB 테스트', dueDate: "2022-08-18", testCode: 82256975 },
+      { subject: Python,label: 'Python WEB 테스트', dueDate: "2022-08-20", testCode: 82256954 },
+      { subject: Python,label: 'Spider WEB 테스트', dueDate: "2022-08-27", testCode: 82256978 },
+      { subject: Sap, label: 'SAP WEB 테스트', dueDate: "2022-08-07", testCode: 82256946 },
+      { subject: Java, label: 'JPA WEB 테스트', dueDate: "2022-08-24", testCode: 82256934 },
+      { subject: Java, label: 'StacrCraft WEB 테스트', dueDate: "2022-08-12", testCode: 82246857 },
+      { subject: Sap, label: '황새오래걷기 WEB 테스트', dueDate: "2022-08-15", testCode: 82267857 }
     ]
   
     const confirmTestPw = () => {
       if (inputValue) {
+        console.log(inputValue)
         Swal.fire({
             title: '응시 비밀번호 확인',
             html: `<input type="password" id="password" class="swal2-input" placeholder="응시 비밀번호">`,
@@ -87,7 +123,6 @@ const HomePage = () => {
                     <Autocomplete
                       id="combo-box-demo"
                       options={testList}
-
                       inputValue={inputValue}
                       onInputChange={(event, newInputValue) => {
                         setInputValue(newInputValue);
@@ -102,10 +137,21 @@ const HomePage = () => {
             <div className="home-previous-test-div">
                 <h2>응시 완료한 시험</h2>
                 <div className="pre-test-div">
-                    <Carder cardImage={Java} title="java 기본시험 1차" dueDate="2022-08-17" />
-                    <Carder cardImage={Python} title="파이썬 응용시험 1차" dueDate="2022-08-19" />
-                    <Carder cardImage={Sap} title="SAP 모의시험 1차" dueDate="2022-08-23" />
+                {alTestBox.map((item, index) => (
+                    
+                    <Carder cardImage={item.subject} title={item.label} dueDate={item.dueDate} key={index} />
+                  ))}
+                { (showMore) ? 
+                <button className="more-button" onClick={dpAlTestBox}>더보기</button>
+                  :
+                  null
+                }
                 </div>
+                
+                    {/* <Carder cardImage={Java} title="java 기본시험 1차" dueDate="2022-08-17" />
+                    <Carder cardImage={Python} title="파이썬 응용시험 1차" dueDate="2022-08-19" />
+                    <Carder cardImage={Sap} title="SAP 모의시험 1차" dueDate="2022-08-23" /> */}
+                
             </div>
         </div>
         

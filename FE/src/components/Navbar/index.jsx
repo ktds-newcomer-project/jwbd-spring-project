@@ -1,39 +1,31 @@
 import { Link, Navigate } from "react-router-dom"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useStore } from "../../states.js"
 import { useNavigate } from "react-router-dom"
 import './style.css'
 import ktds from '../../assets/ktds.png'
+import ProfilePic from '../../assets/profile.png'
 
 
 const Navbar = () => {
   const { setUserToken, userToken } = useStore();
   const [authorized, setAuthorized] = useState(false);
+  const navigate = useNavigate();
   const onClickLogout = () => {
     setUserToken('')
     localStorage.removeItem('isLogin')
-    Navigate('/')
+    navigate('/')
   }
-//   const [dropDown, setDropDown] = useState(false);
+  const [dropDown, setDropDown] = useState(false);
 //   const [userPic, setUserPic] = useState('')
-//   const navigate = useNavigate();
 
-//   const toggleHandler = () => {
-//     setDropDown(!dropDown);
-//   }
+  const toggleHandler = () => {
+    setDropDown(!dropDown);
+  }
 
 
   
 
-//   const goProfile = () => {
-//     navigate("/profile", {state : { username : ""}});
-//     setDropDown(!dropDown);
-//   }
-
-//   const goChangeInfo = () => {
-//     navigate("/changeinfo");
-//     setDropDown(!dropDown);
-//   }
 
   
 
@@ -44,48 +36,34 @@ const Navbar = () => {
       </Link>
 
       <div className="navbar_dropdown">
-        {authorized ?
-          <div className="navbar-profile-image">
-            {/* { (userPic === "None")  ?
-              <>
-                <img src={Default} alt="defaultPic" onClick={toggleHandler} className="person-image" />
-              </>
-              :
-              <>
-                <img src={userPic} alt="userPic" onClick={toggleHandler} className="person-image" />
-              </>
-            } */}
-          </div>
-          :
-          <Link className="login" to="/">
-            <p className="login-text" onClick={onClickLogout} >로그아웃</p>
-          </Link>
-        }
-
-        {/* {dropDown ? 
+        <div className="navbar-profile-image">
+          <img src={ProfilePic} onClick={toggleHandler} alt="profilepic" className="profile-pic"/>
+        </div>
+        
+        { (dropDown) ? 
           <div className="navbar_dropdown_content">
             <div className="navbar_dropdown_content_element">
               <div className="navbar_myprofile">
-                <button className="navbar_dropdown_button" onClick={goProfile}>프로필</button>
+                <button className="navbar_dropdown_button">프로필</button>
               </div>
             </div>
 
             <div className="navbar_dropdown_content_element">
               <div className="navbar-change-info">
-                <button className="navbar_dropdown_button" onClick={goChangeInfo}>정보수정</button>
+                <button className="navbar_dropdown_button" >정보수정</button>
               </div>
             </div>
 
             <div className="navbar_dropdown_content_element">
               <div className="navbar_logout">
-                <button className="navbar_dropdown_button" onClick={signOut}>로그아웃</button>
+                <button className="navbar_dropdown_button" onClick={onClickLogout}>로그아웃</button>
               </div>   
             </div>
             
           </div>
           :
           <></>
-        } */}
+        }
 
       </div>
     </nav>
