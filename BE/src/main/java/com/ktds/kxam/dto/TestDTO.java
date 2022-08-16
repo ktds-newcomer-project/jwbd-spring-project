@@ -26,4 +26,6 @@ public class TestDTO {
     private LocalDateTime startTime;
 
     private LocalDateTime endTime;
+
+    private String validateKey;
 }
