@@ -1,10 +1,14 @@
 package com.ktds.kxam.dto;
 
+import com.ktds.kxam.entity.MemberRole;
+
+import java.util.Set;
+
 public class MemberDTO {
 
-    private Long sabun;
-
-    private Long mpw;
+    private String sabun;
 
     private String name;
+
+    private Set<MemberRole> roleSet;
 }

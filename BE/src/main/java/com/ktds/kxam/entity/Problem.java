@@ -34,6 +34,10 @@ public class Problem {
 
     private String reasonOfDelete;
 
+    @ColumnDefault("5")
+    @Column(nullable = false)
+    private int point;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Test test;
 
