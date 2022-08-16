@@ -21,4 +21,12 @@ public interface TestRepo extends JpaRepository<Test, Long>{
     @Transactional
     @Query("update Test t set t.endTime =:endTime where t.tid = :tid ")
     void updateEndTime(@Param("tid") Long tid, @Param("endTime")LocalDateTime endTime);
+
+    @Modifying
+    @Transactional
+    @Query("update Test t set t.validateKey = :validateKey where t.tid = :tid")
+    void updateValidateKey(@Param("tid") Long tid, @Param("validateKey") String validateKey);
+
+    @Query("select t.validateKey from Test t where t.tid = :tid")
+    String findValidateKeyByTest(@Param("tid")Long tid);
 }

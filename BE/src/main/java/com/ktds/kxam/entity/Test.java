@@ -37,4 +37,6 @@ public class Test {
 
     @Column(nullable = false)
     private LocalDateTime endTime;
+
+    private String validateKey;
 }

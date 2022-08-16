@@ -1,5 +1,6 @@
 package com.ktds.kxam.service;
 
+import com.ktds.kxam.dto.ModifyTestValidateKeyDTO;
 import com.ktds.kxam.dto.TestDTO;
 import com.ktds.kxam.entity.Test;
 import com.ktds.kxam.exception.ApiMessageException;
@@ -27,6 +28,7 @@ public class TestService {
                 .title(testDTO.getTitle())
                 .startTime(testDTO.getStartTime())
                 .endTime(testDTO.getEndTime())
+                .validateKey((testDTO.getValidateKey()))
                 .build();
 
         Test saveResult = testRepo.save(test);
@@ -35,13 +37,19 @@ public class TestService {
 
     @Transactional
     public void modifyStartEndTime(Long tid, LocalDateTime startTime, LocalDateTime endTime){
+        testRepo.findById(tid).orElseThrow(()->new ApiMessageException("존재하지 않는 테스트 입니다."));
+
         if(startTime != null){
             testRepo.updateStartTime(tid, startTime);
         }
         if(endTime != null){
-            testRepo.updateEndTime(tid, startTime);
+            testRepo.updateEndTime(tid, endTime);
         }
-        Test modiResult = testRepo.findById(tid).orElseThrow(()->
-                new ApiMessageException("존재하지 않는 테스트 입니다."));
+    }
+
+    @Transactional
+    public void modifyValidateKey(ModifyTestValidateKeyDTO modifyTestValidateKeyDTO){
+        testRepo.findById(modifyTestValidateKeyDTO.getTid()).orElseThrow(()->new ApiMessageException("존재하지 않는 테스트 입니다."));
+        testRepo.updateValidateKey(modifyTestValidateKeyDTO.getTid(), modifyTestValidateKeyDTO.getValidateKey());
     }
 }

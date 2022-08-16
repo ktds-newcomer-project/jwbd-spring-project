@@ -1,6 +1,7 @@
 package com.ktds.kxam.service;
 
 import com.ktds.kxam.dto.ProblemDTO;
+import com.ktds.kxam.dto.ReqProblemByTestDTO;
 import com.ktds.kxam.entity.Problem;
 import com.ktds.kxam.exception.ApiMessageException;
 import com.ktds.kxam.repo.ProblemRepo;
@@ -20,7 +21,6 @@ import java.util.List;
 public class ProblemService {
 
     private final ProblemRepo problemRepo;
-    private final ProblemTagHashRepo problemTagHashRepo;
     private final TestRepo testRepo;
 
     @Transactional
@@ -65,8 +65,10 @@ public class ProblemService {
             throw new ApiMessageException("보기 수정에 실패하였습니다.");
     }
 
-    public List<Problem> findProblemsByTestId(Long tid){
-        List<Problem> result = problemRepo.findProblemsByTestId(tid);
+    public List<Problem> findProblemsByTestId(ReqProblemByTestDTO reqProblemByTestDTO){
+        String validateKey = testRepo.findValidateKeyByTest(reqProblemByTestDTO.getTid());
+        if(!validateKey.equals(reqProblemByTestDTO.getValidateKey())) throw new ApiMessageException("비밀번호가 일치하지 않습니다.");
+        List<Problem> result = problemRepo.findProblemsByTestId(reqProblemByTestDTO.getTid());
         if(result.size() == 0) throw new ApiMessageException("등록된 문제를 찾을 수 없습니다.");
         return result;
     }
