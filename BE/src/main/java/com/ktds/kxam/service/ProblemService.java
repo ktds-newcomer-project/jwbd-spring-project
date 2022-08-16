@@ -67,7 +67,7 @@ public class ProblemService {
 
     public List<Problem> findProblemsByTestId(ReqProblemByTestDTO reqProblemByTestDTO){
         String validateKey = testRepo.findValidateKeyByTest(reqProblemByTestDTO.getTid());
-        if(!validateKey.equals(reqProblemByTestDTO.getValidateKey())) throw new ApiMessageException("비밀번호가 일치하지 않습니다.");
+        if(validateKey!=null && !validateKey.equals(reqProblemByTestDTO.getValidateKey())) throw new ApiMessageException("비밀번호가 일치하지 않습니다.");
         List<Problem> result = problemRepo.findProblemsByTestId(reqProblemByTestDTO.getTid());
         if(result.size() == 0) throw new ApiMessageException("등록된 문제를 찾을 수 없습니다.");
         return result;
