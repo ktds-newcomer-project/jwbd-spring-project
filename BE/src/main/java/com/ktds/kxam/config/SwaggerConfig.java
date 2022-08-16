@@ -37,9 +37,9 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI springOpenAPI() {
         return new OpenAPI()
-                .addServersItem(new Server().url("https://k6d104.p.ssafy.io"))
-                .info(new Info().title("Keep My Receipt API")
-                        .description("Keep My Receipt 명세서입니다.")
+                .addServersItem(new Server().url("http://localhost"))
+                .info(new Info().title("K-XAM")
+                        .description("K-XAM 명세서입니다.")
                         .version("V1"));
     }
 
