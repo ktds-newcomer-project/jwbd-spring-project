@@ -1,31 +1,49 @@
 import LoginForm from "./component/LoginForm";
 import { axiosInstance } from "./pages/api";
-import useAxios from "axios-hooks";
-import { React, useState } from "react";
-import { useMemberStore } from "./states";
-import { Navigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useMemberStore, useHelpStore } from "./states";
+import Layout from "./pages/layout/layout";
+import { BrowserRouter } from "react-router-dom";
+import storage from "./lib/storage";
 
 function App() {
-  const headers = { "Access-Control-Allow-Origin": "*" };
-  const { data, loading, error } = useAxios({
-    url: "http://localhost:8080/member",
-    headers,
-  });
-  const userToken = JSON.parse(localStorage.getItem("token"));
-  const LoginFunc = (username, password, remember) => {
-    if (username === "" || password === "") {
+  const {
+    setIsLogind,
+    setUserToken,
+    setUserName,
+    setUserId,
+    isLogind = false,
+  } = useMemberStore();
+
+  useEffect(() => {
+    if (storage.get("isLogind")) {
+      setIsLogind(storage.get("isLogind"));
+      setUserName(storage.get("userName"));
+    }
+  }, []);
+
+  const { setQryString, qryString } = useHelpStore();
+  const LoginFunc = (userid, password) => {
+    if (userid === "" || password === "") {
       return;
     }
-    let login_vo = { id: username, pwd: password };
-    //localStorage.setItem("token", "1234");
-    console.log(login_vo, userToken);
-    // window.location.replace("/");
     axiosInstance
-      .post("/member/login", { login_vo })
+      .get("/loginOk/0") //TODO: get -> post, + body
       .then((respones) => {
-        console.log(username, password, remember);
+        setIsLogind(true);
+        setUserToken(respones.data.token);
+        setUserName(respones.data.name); //TODO: type -> name
+        setUserId(userid);
+
+        storage.set("userId", userid);
+        storage.set("userName", respones.data.name);
+        storage.set("isLogind", true);
+        storage.set("validated", false);
+        storage.set("token", respones.data.name);
       })
       .catch((error) => {
+        setQryString("wrong1");
+        console.log(qryString);
         console.log("Data", error.response.data);
         console.log("Status", error.response.status);
         console.log("Header", error.response.headers);
@@ -36,9 +54,10 @@ function App() {
   };
   return (
     <div>
-      {!userToken && <LoginForm LoginFunc={LoginFunc} />}
-      {userToken && <div> hi </div>}
-      <div>{userToken}</div>
+      <BrowserRouter>
+        {!isLogind && <LoginForm LoginFunc={LoginFunc} />}
+        {isLogind && <Layout></Layout>}
+      </BrowserRouter>
     </div>
   );
 }
