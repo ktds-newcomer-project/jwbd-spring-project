@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -51,5 +53,22 @@ public class TestService {
     public void modifyValidateKey(TestValidateKeyReqDTO modifyTestValidateKeyDTO){
         testRepo.findById(modifyTestValidateKeyDTO.getTid()).orElseThrow(()->new ApiMessageException("존재하지 않는 테스트 입니다."));
         testRepo.updateValidateKey(modifyTestValidateKeyDTO.getTid(), modifyTestValidateKeyDTO.getValidateKey());
+    }
+
+    public List<Test> findTestAll() {
+        List<Test> testList = testRepo.findAll();
+        return testList;
+    }
+
+    public List<Test> findTestByMember(String sabun){
+        List<Long> tidList = testRepo.findByMember(sabun);
+
+        List<Test> result = new ArrayList<>();
+        for(Long tid : tidList){
+            Test temp = testRepo.findById(tid).orElseThrow(()->new ApiMessageException("시험을 찾을 수 없습니다."));
+            result.add(temp);
+        }
+
+        return result;
     }
 }

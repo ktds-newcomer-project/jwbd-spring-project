@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Repository
 public interface TestRepo extends JpaRepository<Test, Long>{
@@ -29,4 +30,7 @@ public interface TestRepo extends JpaRepository<Test, Long>{
 
     @Query("select t.validateKey from Test t where t.tid = :tid")
     String findValidateKeyByTest(@Param("tid")Long tid);
+
+    @Query("select distinct mp.problem.test.tid from MemberProblem mp where mp.member.sabun=:sabun")
+    List<Long> findByMember(@Param("sabun") String sabun);
 }
