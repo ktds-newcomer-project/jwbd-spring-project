@@ -1,4 +1,4 @@
-package com.ktds.kxam.dto;
+package com.ktds.kxam.dto.common;
 
 import lombok.Data;
 

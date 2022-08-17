@@ -1,6 +1,6 @@
 package com.ktds.kxam.service;
 
-import com.ktds.kxam.dto.ModifyTestValidateKeyDTO;
+import com.ktds.kxam.dto.req.TestValidateKeyReqDTO;
 import com.ktds.kxam.dto.TestDTO;
 import com.ktds.kxam.entity.Test;
 import com.ktds.kxam.exception.ApiMessageException;
@@ -48,7 +48,7 @@ public class TestService {
     }
 
     @Transactional
-    public void modifyValidateKey(ModifyTestValidateKeyDTO modifyTestValidateKeyDTO){
+    public void modifyValidateKey(TestValidateKeyReqDTO modifyTestValidateKeyDTO){
         testRepo.findById(modifyTestValidateKeyDTO.getTid()).orElseThrow(()->new ApiMessageException("존재하지 않는 테스트 입니다."));
         testRepo.updateValidateKey(modifyTestValidateKeyDTO.getTid(), modifyTestValidateKeyDTO.getValidateKey());
     }

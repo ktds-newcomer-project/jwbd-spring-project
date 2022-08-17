@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -36,21 +37,30 @@ public class MemberProblemService {
         if(result == null) throw new ApiMessageException("저장에 실패하였습니다.");
     }
 
-    public List<MemberProblem> findMemberProblemBySabunAndTest(String sabun, Long tid){
-        List<MemberProblem> result = memberProblemRepo.findMemberProblemsBySabunAndTestId(sabun, tid);
-        if(result.size() == 0) throw new ApiMessageException("문제 조회에 실패했습니다.");
+    public List<MemberProblemDTO> findMemberProblemBySabunAndTest(String sabun, Long tid){
+        List<MemberProblem> memberProblemList = memberProblemRepo.findMemberProblemsBySabunAndTestId(sabun, tid);
+        if(memberProblemList.size() == 0) throw new ApiMessageException("문제 조회에 실패했습니다.");
+        List<MemberProblemDTO> result = new ArrayList<>();
+        for(MemberProblem mp : memberProblemList)
+            result.add(MemberProblemDTO.of(mp));
         return result;
     }
 
-    public List<MemberProblem> findMemberProblemBySabun(String sabun){
-        List<MemberProblem> result = memberProblemRepo.findMemberProblemsBySabun(sabun);
-        if(result.size() == 0) throw new ApiMessageException("문제 조회에 실패했습니다.");
+    public List<MemberProblemDTO> findMemberProblemBySabun(String sabun){
+        List<MemberProblem> memberProblemList = memberProblemRepo.findMemberProblemsBySabun(sabun);
+        if(memberProblemList.size() == 0) throw new ApiMessageException("문제 조회에 실패했습니다.");
+        List<MemberProblemDTO> result = new ArrayList<>();
+        for(MemberProblem mp : memberProblemList)
+            result.add(MemberProblemDTO.of(mp));
         return result;
     }
 
-    public List<MemberProblem> findMemberProblemByProblem(Long pid){
-        List<MemberProblem> result = memberProblemRepo.findMemberProblemsByProblem(pid);
-        if(result.size() == 0) throw new ApiMessageException("문제 조회에 실패했습니다.");
+    public List<MemberProblemDTO> findMemberProblemByProblem(Long pid){
+        List<MemberProblem> memberProblemList = memberProblemRepo.findMemberProblemsByProblem(pid);
+        if(memberProblemList.size() == 0) throw new ApiMessageException("문제 조회에 실패했습니다.");
+        List<MemberProblemDTO> result = new ArrayList<>();
+        for(MemberProblem mp : memberProblemList)
+            result.add(MemberProblemDTO.of(mp));
         return result;
     }
 }

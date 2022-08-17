@@ -1,4 +1,4 @@
-package com.ktds.kxam.dto;
+package com.ktds.kxam.dto.req;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ModifyTagDTO {
+public class TagReqDTO {
     private Long tagId;
     private String tagName;
 }
