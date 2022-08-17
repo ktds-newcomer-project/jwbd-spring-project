@@ -1,8 +1,8 @@
 package com.ktds.kxam.controller;
 
-import com.ktds.kxam.dto.CommonResult;
-import com.ktds.kxam.dto.ModifyTestDTO;
-import com.ktds.kxam.dto.ModifyTestValidateKeyDTO;
+import com.ktds.kxam.dto.common.CommonResult;
+import com.ktds.kxam.dto.req.TestTimeReqDTO;
+import com.ktds.kxam.dto.req.TestValidateKeyReqDTO;
 import com.ktds.kxam.dto.TestDTO;
 import com.ktds.kxam.service.ResponseService;
 import com.ktds.kxam.service.TestService;
@@ -31,14 +31,14 @@ public class TestController {
 
     @Operation(description = "시험 시작 및 종료 시각 수정")
     @PutMapping
-    public @ResponseBody CommonResult modifyTest(@RequestBody ModifyTestDTO modifyTestDTO) throws Exception{
+    public @ResponseBody CommonResult modifyTest(@RequestBody TestTimeReqDTO modifyTestDTO) throws Exception{
         testService.modifyStartEndTime(modifyTestDTO.getTid(), modifyTestDTO.getStartTime(), modifyTestDTO.getEndTime());
         return responseService.getSuccessResult();
     }
 
     @Operation(description = "시험 응시자 비밀번호 수정")
     @PutMapping("/validate-key")
-    public @ResponseBody CommonResult modifyValidateKey(@RequestBody ModifyTestValidateKeyDTO modifyTestValidateKeyDTO) throws Exception{
+    public @ResponseBody CommonResult modifyValidateKey(@RequestBody TestValidateKeyReqDTO modifyTestValidateKeyDTO) throws Exception{
         testService.modifyValidateKey(modifyTestValidateKeyDTO);
         return responseService.getSuccessResult();
     }

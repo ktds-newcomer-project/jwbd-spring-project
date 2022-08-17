@@ -1,4 +1,4 @@
-package com.ktds.kxam.dto;
+package com.ktds.kxam.dto.req;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProblemModifyDTO {
-    private Long pid;
-    private String text;
+public class TestValidateKeyReqDTO {
+    private Long tid;
+    private String validateKey;
 }
