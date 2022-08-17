@@ -17,8 +17,8 @@ const LoginForm = ({ LoginFunc }) => {
     }
   }, [qryString]);
   const onFinish = (values) => {
-    let { username, password, remember } = values;
-    LoginFunc(username, password, remember);
+    let { username, password } = values;
+    LoginFunc(username, password);
   };
 
   return (

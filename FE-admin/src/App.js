@@ -18,6 +18,7 @@ function App() {
   useEffect(() => {
     if (storage.get("isLogind")) {
       setIsLogind(storage.get("isLogind"));
+      setUserToken(storage.get("token"));
       setUserName(storage.get("userName"));
     }
   }, []);
@@ -27,23 +28,24 @@ function App() {
     if (userid === "" || password === "") {
       return;
     }
+    let login_vo = { id: userid, pwd: password };
     axiosInstance
-      .get("/loginOk/0") //TODO: get -> post, + body
+      .post("/api/member/login", login_vo)
       .then((respones) => {
+        let data = respones.data.data[0];
         setIsLogind(true);
-        setUserToken(respones.data.token);
-        setUserName(respones.data.name); //TODO: type -> name
+        setUserToken(data.token);
+        setUserName(data.name);
         setUserId(userid);
 
         storage.set("userId", userid);
-        storage.set("userName", respones.data.name);
+        storage.set("userName", data.name);
         storage.set("isLogind", true);
         storage.set("validated", false);
-        storage.set("token", respones.data.name);
+        storage.set("token", data.token);
       })
       .catch((error) => {
         setQryString("wrong1");
-        console.log(qryString);
         console.log("Data", error.response.data);
         console.log("Status", error.response.status);
         console.log("Header", error.response.headers);
