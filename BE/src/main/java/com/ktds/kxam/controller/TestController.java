@@ -53,4 +53,11 @@ public class TestController {
         List<Test> result = testService.findTestAll();
         return responseService.getListResult(result);
     }
+
+    @Operation(description = "내가 응시한 시험 목록 조회")
+    @GetMapping("/find-by/member")
+    public @ResponseBody ListResult<Test> findTestByMember(@RequestParam("sabun") String sabun) throws Exception{
+        List<Test> result = testService.findTestByMember(sabun);
+        return responseService.getListResult(result);
+    }
 }
