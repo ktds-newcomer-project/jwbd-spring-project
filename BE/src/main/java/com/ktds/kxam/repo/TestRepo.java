@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Repository
 public interface TestRepo extends JpaRepository<Test, Long>{
@@ -29,4 +30,16 @@ public interface TestRepo extends JpaRepository<Test, Long>{
 
     @Query("select t.validateKey from Test t where t.tid = :tid")
     String findValidateKeyByTest(@Param("tid")Long tid);
+
+    @Query("select distinct mp.problem.test.tid from MemberProblem mp where mp.member.sabun=:sabun")
+    List<Long> findByMember(@Param("sabun") String sabun);
+
+    @Query("select distinct mp.member.sabun from MemberProblem mp where mp.problem.test.tid = :tid")
+    List<String> findMemberByTest(@Param("tid") Long tid);
+
+    @Query("select mp.problem.pid from MemberProblem mp where mp.isCollect = true and mp.member.sabun = :sabun and mp.problem.test.tid=:tid")
+    List<Long> findProblemByMemberAndTest(@Param("sabun") String sabun, @Param("tid") Long tid);
+
+    @Query("select p.point from Problem p where p.pid=:pid")
+    int findPointByProblem(@Param("pid") Long pid);
 }

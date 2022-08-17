@@ -1,8 +1,8 @@
 package com.ktds.kxam.service;
 
-import com.ktds.kxam.dto.CommonResult;
-import com.ktds.kxam.dto.ListResult;
-import com.ktds.kxam.dto.SingleResult;
+import com.ktds.kxam.dto.common.CommonResult;
+import com.ktds.kxam.dto.common.ListResult;
+import com.ktds.kxam.dto.common.SingleResult;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

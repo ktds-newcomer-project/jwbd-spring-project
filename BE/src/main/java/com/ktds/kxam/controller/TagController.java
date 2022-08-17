@@ -1,7 +1,7 @@
 package com.ktds.kxam.controller;
 
-import com.ktds.kxam.dto.CommonResult;
-import com.ktds.kxam.dto.ModifyTagDTO;
+import com.ktds.kxam.dto.common.CommonResult;
+import com.ktds.kxam.dto.req.TagReqDTO;
 import com.ktds.kxam.service.ResponseService;
 import com.ktds.kxam.service.TagService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -45,7 +45,7 @@ public class TagController {
 
     @Operation(description = "태그 이름 수정")
     @PutMapping
-    public @ResponseBody CommonResult modifyTag(@RequestBody ModifyTagDTO modifyTagDTO) throws Exception{
+    public @ResponseBody CommonResult modifyTag(@RequestBody TagReqDTO modifyTagDTO) throws Exception{
         tagService.modifyTagName(modifyTagDTO.getTagId(), modifyTagDTO.getTagName());
         return responseService.getSuccessResult();
     }

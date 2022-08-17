@@ -1,17 +1,17 @@
 package com.ktds.kxam.service;
 
 import com.ktds.kxam.dto.ProblemDTO;
-import com.ktds.kxam.dto.ReqProblemByTestDTO;
+import com.ktds.kxam.dto.res.ProblemResDTO;
 import com.ktds.kxam.entity.Problem;
 import com.ktds.kxam.exception.ApiMessageException;
 import com.ktds.kxam.repo.ProblemRepo;
-import com.ktds.kxam.repo.ProblemTagHashRepo;
 import com.ktds.kxam.repo.TestRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -65,17 +65,23 @@ public class ProblemService {
             throw new ApiMessageException("보기 수정에 실패하였습니다.");
     }
 
-    public List<Problem> findProblemsByTestId(ReqProblemByTestDTO reqProblemByTestDTO){
-        String validateKey = testRepo.findValidateKeyByTest(reqProblemByTestDTO.getTid());
-        if(validateKey!=null && !validateKey.equals(reqProblemByTestDTO.getValidateKey())) throw new ApiMessageException("비밀번호가 일치하지 않습니다.");
-        List<Problem> result = problemRepo.findProblemsByTestId(reqProblemByTestDTO.getTid());
-        if(result.size() == 0) throw new ApiMessageException("등록된 문제를 찾을 수 없습니다.");
+    public List<ProblemResDTO> findProblemsByTestId(Long tid, String validateKey){
+        String originValidateKey = testRepo.findValidateKeyByTest(tid);
+        if(originValidateKey!=null && !originValidateKey.equals(validateKey)) throw new ApiMessageException("비밀번호가 일치하지 않습니다.");
+        List<Problem> problemList = problemRepo.findProblemsByTestId(tid);
+        if(problemList.size() == 0) throw new ApiMessageException("등록된 문제를 찾을 수 없습니다.");
+        List<ProblemResDTO> result = new ArrayList<>();
+        for(Problem p : problemList)
+            result.add(ProblemResDTO.of(p));
         return result;
     }
 
-    public List<Problem> findProblemsByTag(Long tagId){
-        List<Problem> result = problemRepo.findProblemsByTagId(tagId);
-        if(result.size() == 0) throw new ApiMessageException("등록된 문제를 찾을 수 없습니다.");
+    public List<ProblemResDTO> findProblemsByTag(Long tagId){
+        List<Problem> problemList = problemRepo.findProblemsByTagId(tagId);
+        if(problemList.size() == 0) throw new ApiMessageException("등록된 문제를 찾을 수 없습니다.");
+        List<ProblemResDTO> result = new ArrayList<>();
+        for(Problem p : problemList)
+            result.add(ProblemResDTO.of(p));
         return result;
     }
 }
