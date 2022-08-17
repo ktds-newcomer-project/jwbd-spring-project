@@ -13,6 +13,8 @@ import java.util.Optional;
 
 @Repository
 public interface MemberRepo extends JpaRepository<Member, String> {
+    Optional<Member> findFirstMemberBySabun(String sabun);
+
     Optional<Member> findMemberBySabun(String sabun);
 
     @Modifying

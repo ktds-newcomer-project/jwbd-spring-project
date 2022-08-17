@@ -4,9 +4,12 @@ import com.ktds.kxam.dto.common.CommonResult;
 import com.ktds.kxam.dto.MemberDTO;
 import com.ktds.kxam.dto.MemberProblemDTO;
 import com.ktds.kxam.dto.common.ListResult;
+import com.ktds.kxam.dto.req.LoginReqDTO;
+import com.ktds.kxam.dto.res.LoginResDTO;
 import com.ktds.kxam.service.MemberProblemService;
 import com.ktds.kxam.service.MemberService;
 import com.ktds.kxam.service.ResponseService;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -19,16 +22,21 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Log4j2
-@RequestMapping("/api/member-management")
+@RequestMapping("/api/member")
 public class MemberController {
 
     private final MemberService memberService;
     private final ResponseService responseService;
 
+    @PostMapping("/login")
+    public @ResponseBody ListResult<LoginResDTO> doLogin(@RequestBody LoginReqDTO dto) {
+        return responseService.getListResult(memberService.doLogin(dto));
+    }
+
     // TODO: 권한 Filter?
-    @Operation(description = "해당 문제를 푼 모든 회원 조회")
+    @Operation(description = "page를 넣어 나눠서 받음.")
     @GetMapping("/find")
-    public @ResponseBody ListResult<MemberDTO> saveMemberProblem(@RequestParam("page") int page)
+    public @ResponseBody ListResult<MemberDTO> findByPage(@RequestParam("page") int page)
             throws Exception {
         return responseService.getListResult(memberService.allList(page));
     }
