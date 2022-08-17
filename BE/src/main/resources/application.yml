@@ -5,13 +5,24 @@ spring:
     username: admin
     password: wlrdnjsqudehd
 
+  jwt:
+    secret: DvqcGn8mnFjqSL4a
+
   jpa:
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
         format_sql: true #To beautify or pretty print the SQL
-        show_sql: true #show sql
+        show_sql: false #show sql
+
+server:
+  # 프로젝트 환경의 포트 설정
+  port: 8185
+  domain: localhost
+  servlet:
+    session:
+      timeout: 1440m
 
 logging:
   level:
