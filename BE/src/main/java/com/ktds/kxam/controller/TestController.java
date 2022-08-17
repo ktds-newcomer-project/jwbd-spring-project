@@ -2,6 +2,7 @@ package com.ktds.kxam.controller;
 
 import com.ktds.kxam.dto.common.CommonResult;
 import com.ktds.kxam.dto.common.ListResult;
+import com.ktds.kxam.dto.common.SingleResult;
 import com.ktds.kxam.dto.req.TestTimeReqDTO;
 import com.ktds.kxam.dto.req.TestValidateKeyReqDTO;
 import com.ktds.kxam.dto.TestDTO;
@@ -59,5 +60,19 @@ public class TestController {
     public @ResponseBody ListResult<Test> findTestByMember(@RequestParam("sabun") String sabun) throws Exception{
         List<Test> result = testService.findTestByMember(sabun);
         return responseService.getListResult(result);
+    }
+
+    @Operation(description = "시험에 응시한 사람들의 모든 점수 조회")
+    @GetMapping("/scores")
+    public @ResponseBody ListResult<Integer> getScores(@RequestParam("tid")Long tid) throws Exception{
+        List<Integer> result = testService.getScoresFromTestResult(tid);
+        return responseService.getListResult(result);
+    }
+
+    @Operation(description = "시험에 응시한 사람의 사번으로 해당 인원의 해당 시험 점수 조회")
+    @GetMapping("score")
+    public @ResponseBody SingleResult<Integer> getScore(@RequestParam("sabun")String sabun, @RequestParam("tid")Long tid) throws Exception{
+        int result = testService.getScoreBySabunAndTest(sabun, tid);
+        return responseService.getSingleResult(result);
     }
 }

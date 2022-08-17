@@ -71,4 +71,29 @@ public class TestService {
 
         return result;
     }
+
+    public List<Integer> getScoresFromTestResult(Long tid){
+        List<Integer> result = new ArrayList<>();
+
+        List<String> sabunList = testRepo.findMemberByTest(tid);
+        for(String sabun : sabunList){
+            int score = 0;
+            List<Long> problemList = testRepo.findProblemByMemberAndTest(sabun, tid);
+            for(Long pid : problemList){
+                score += testRepo.findPointByProblem(pid);
+            }
+            result.add(score);
+        }
+
+        return result;
+    }
+
+    public int getScoreBySabunAndTest(String sabun, Long tid){
+        int score = 0;
+        List<Long> problemList = testRepo.findProblemByMemberAndTest(sabun, tid);
+        for(Long pid : problemList){
+            score += testRepo.findPointByProblem(pid);
+        }
+        return score;
+    }
 }
