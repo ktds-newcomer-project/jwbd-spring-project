@@ -1,9 +1,15 @@
 package com.ktds.kxam.service;
 
+import com.ktds.kxam.dto.req.AnswerDTO;
+import com.ktds.kxam.dto.req.SubmitReqDTO;
 import com.ktds.kxam.dto.req.TestValidateKeyReqDTO;
 import com.ktds.kxam.dto.TestDTO;
+import com.ktds.kxam.entity.MemberProblem;
 import com.ktds.kxam.entity.Test;
 import com.ktds.kxam.exception.ApiMessageException;
+import com.ktds.kxam.repo.MemberProblemRepo;
+import com.ktds.kxam.repo.MemberRepo;
+import com.ktds.kxam.repo.ProblemRepo;
 import com.ktds.kxam.repo.TestRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -21,6 +27,9 @@ import java.util.List;
 public class TestService {
 
     private final TestRepo testRepo;
+    private final MemberProblemRepo memberProblemRepo;
+    private final ProblemRepo problemRepo;
+    private final MemberRepo memberRepo;
 
     @Transactional
     public void saveTest(TestDTO testDTO){
@@ -95,5 +104,16 @@ public class TestService {
             score += testRepo.findPointByProblem(pid);
         }
         return score;
+    }
+
+    public void submit(SubmitReqDTO submitReqDTO){
+        for(AnswerDTO answerDTO : submitReqDTO.getAnswerDTOList()){
+            memberProblemRepo.save(MemberProblem.builder()
+                    .isCollect(answerDTO.isCollect(problemRepo.getAnswer(answerDTO.getPid())))
+                    .member(memberRepo.findById(submitReqDTO.getSabun()).orElseThrow(()->new ApiMessageException("회원을 찾을 수 없습니다.")))
+                    .problem(problemRepo.findById(answerDTO.getPid()).orElseThrow(()->new ApiMessageException("문제를 찾을 수 없습니다.")))
+                    .userAnswer(answerDTO.getAnswer())
+                    .build());
+        }
     }
 }

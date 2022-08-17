@@ -3,6 +3,7 @@ package com.ktds.kxam.controller;
 import com.ktds.kxam.dto.common.CommonResult;
 import com.ktds.kxam.dto.common.ListResult;
 import com.ktds.kxam.dto.common.SingleResult;
+import com.ktds.kxam.dto.req.SubmitReqDTO;
 import com.ktds.kxam.dto.req.TestTimeReqDTO;
 import com.ktds.kxam.dto.req.TestValidateKeyReqDTO;
 import com.ktds.kxam.dto.TestDTO;
@@ -70,9 +71,16 @@ public class TestController {
     }
 
     @Operation(description = "시험에 응시한 사람의 사번으로 해당 인원의 해당 시험 점수 조회")
-    @GetMapping("score")
+    @GetMapping("/score")
     public @ResponseBody SingleResult<Integer> getScore(@RequestParam("sabun")String sabun, @RequestParam("tid")Long tid) throws Exception{
         int result = testService.getScoreBySabunAndTest(sabun, tid);
         return responseService.getSingleResult(result);
+    }
+
+    @Operation(description = "시험 제출")
+    @PostMapping("/submit")
+    public @ResponseBody CommonResult submit(@RequestBody SubmitReqDTO submitReqDTO) throws Exception{
+        testService.submit(submitReqDTO);
+        return responseService.getSuccessResult();
     }
 }
