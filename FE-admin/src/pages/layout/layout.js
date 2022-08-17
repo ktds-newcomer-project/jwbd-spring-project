@@ -1,16 +1,17 @@
 import { Dropdown, Breadcrumb, Layout, Menu, message, Space } from "antd";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Router from "../router";
 import { UserOutlined, DownOutlined } from "@ant-design/icons";
 import "./layout.css";
 import { useMemberStore } from "../../states";
-import storage from "../../lib/storage";
-import Logout from "../../lib/logout";
+import storage from "../../mylib/storage";
+import Logout from "../../mylib/logout";
 
 const { Header, Content, Footer } = Layout;
-
+const nav_name = ["/", "member", "tests"];
 const App = () => {
+  const [navIdx, setNavIdx] = useState("0");
   const {
     isLogind,
     userName,
@@ -27,19 +28,14 @@ const App = () => {
 
   function linkFn(idx) {
     return () => {
-      if (idx === 0) {
-        nav("/");
-      } else if (idx === 1) {
-        nav("/nav2");
-      } else if (idx === 2) {
-        nav("/nav3");
-      }
+      nav(nav_name[idx]);
+      setNavIdx(idx.toString());
     };
   }
 
   const menuName = ["홈", "이용자 관리", "테스트 관리"];
 
-  const items1 = ["1", "2", "3"].map((key, idx) => ({
+  const items1 = ["0", "1", "2"].map((key, idx) => ({
     key,
     label: `${menuName[idx]}`,
     onClick: linkFn(idx),
@@ -85,8 +81,20 @@ const App = () => {
     />
   );
 
+  useEffect(() => {
+    let curr = window.location.pathname.substring(1);
+
+    if (curr.length < 2) return;
+
+    for (let name in nav_name) {
+      if (curr === nav_name[name]) {
+        setNavIdx(name);
+      }
+    }
+  }, []);
+
   return (
-    <Layout>
+    <Layout className="container">
       <Header className="header">
         {/* <Image className="logo" src={KTDS} /> */}
         <Dropdown className="profile" overlay={menu} trigger={["click"]}>
@@ -100,7 +108,8 @@ const App = () => {
         <Menu
           theme="dark"
           mode="horizontal"
-          defaultSelectedKeys={["1"]}
+          selectedKeys={navIdx}
+          defaultSelectedKeys={"1"}
           items={items1}
         />
       </Header>
@@ -109,23 +118,7 @@ const App = () => {
           padding: "0 50px",
         }}
       >
-        <Breadcrumb
-          style={{
-            margin: "16px 0",
-          }}
-        >
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>List</Breadcrumb.Item>
-          <Breadcrumb.Item>App</Breadcrumb.Item>
-        </Breadcrumb>
-        <Layout
-          className="site-layout-background"
-          style={{
-            padding: "24px 0",
-          }}
-        >
-          <Router></Router>
-        </Layout>
+        <Router></Router>
       </Content>
       <Footer
         style={{

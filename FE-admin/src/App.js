@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { useMemberStore, useHelpStore } from "./states";
 import Layout from "./pages/layout/layout";
 import { BrowserRouter } from "react-router-dom";
-import storage from "./lib/storage";
+import storage from "./mylib/storage";
 
 function App() {
   const {

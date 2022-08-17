@@ -6,7 +6,6 @@ export const axiosInstance = Axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: true,
 });
 
 export const useAxios = makeUseAxios({
