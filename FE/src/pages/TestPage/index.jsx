@@ -102,7 +102,8 @@ const TestPage = () => {
         tingting.map((item) => {
           let kk = {}
           let arr = item.toString()
-          kk[testData[cc].pid] = arr
+          kk["pid"] = testData[cc].pid
+          kk["answer"] = arr
           binterter2.push(kk)
           console.log('넣어',kk)
           console.log('testdata',testData)
