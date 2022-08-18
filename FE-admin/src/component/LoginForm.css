@@ -1,0 +1,26 @@
+.login-form {
+  max-width: 500px;
+  min-width: 300px;
+  padding: 1em;
+  margin: 20vh auto;
+}
+.login-form-card{
+  box-shadow: 0 5px 18px -7px rgba(0,0,0,1);
+}
+.login-form-forgot {
+  float: right;
+}
+.login-form-button {
+  height: 50px;
+  width: 100%;
+}
+.login-form-padding{
+  padding: 0;
+  margin: 5px;
+}
+.login-form-footer{
+  width: 100%;
+  text-align-last: center;
+  color : rgba(255,255, 255,0.8);
+  margin: 20px 0;
+}
