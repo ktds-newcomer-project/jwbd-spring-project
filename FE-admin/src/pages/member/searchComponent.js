@@ -4,13 +4,20 @@ import { Button, Input, Space, Table, Tag } from "antd";
 import Loading from "../../component/Loding";
 import { SearchOutlined } from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
+import { useHelpStore } from "../../states";
 
 const App = () => {
+  const { selectedMenu } = useHelpStore();
   const [update, setUpdate] = useState(false);
+  const [firstExec, setFirstExec] = useState(false);
   const [{ data, loading }, execute] = useAxios({
     url: "/api/member/findAll",
     method: "GET",
   });
+
+  useEffect(() => {
+    execute();
+  }, [selectedMenu]);
 
   /* Serach Event - Start */
   const [searchText, setSearchText] = useState("");

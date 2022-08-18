@@ -3,31 +3,22 @@ import React, { useEffect, useState } from "react";
 import useAxios from "axios-hooks";
 import Loading from "../../component/Loding";
 import dateformat from "../../mylib/dateformat";
+import "./Calender.css";
 // TODO: 기존 교육에 대한 스케쥴을 출력해줌.
 
-const getMonthData = (value) => {
-  if (value.month() === 8) {
-    return 1394;
-  }
-};
-
 const App = () => {
-  let currData = [];
+  const [axiosData, setAxiosData] = useState([]);
 
-  const getListData = (value) => {
-    for (let item in currData) {
-      console.log(item);
-    }
-    return [];
-  };
-
+  // TODO: 해당 달력에 그리기 위해 Month 단위의 API 필요 - optimize
   const dateCellRender = (value) => {
-    const listData = getListData(value);
+    let listData = axiosData.filter(
+      (item) => item.currDay === value._d.getDate()
+    );
     return (
       <ul className="events">
         {listData.map((item) => (
-          <li key={item.content}>
-            <Badge status={item.type} text={item.content} />
+          <li key={item.tid + ""}>
+            <Badge status="processing" text={item.title} />
           </li>
         ))}
       </ul>
@@ -40,8 +31,7 @@ const App = () => {
   const [update, setUpdate] = useState(false);
   useEffect(() => {
     if (!loading) {
-      let numbering = 10;
-
+      let currData = [];
       let curr_y = new Date().getFullYear();
       let curr_m1 = new Date().getMonth() + 1;
       let curr_m2 = new Date().getMonth() + 2;
@@ -50,16 +40,14 @@ const App = () => {
 
       currData = data.data.filter(
         (item) =>
-          new Date(item["endTime"]) >= start && new Date(item["endTime"]) <= end
+          new Date(item["endTime"]) >= start && new Date(item["endTime"]) < end
       );
 
       currData.map((item) => {
-        item["createdAt"] = dateformat(new Date(item["createdAt"]));
+        item["currDay"] = new Date(item["endTime"]).getDate();
       });
 
-      currData.forEach((item) => {
-        console.log(item);
-      });
+      setAxiosData(currData);
       setUpdate(true);
     }
   }, [loading]);

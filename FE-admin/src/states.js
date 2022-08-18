@@ -3,6 +3,8 @@ import create from "zustand";
 const useHelpStore = create((set) => ({
   qryString: "",
   setQryString: (qryString) => set({ qryString: qryString }),
+  selectedMenu: "",
+  setSelectedMenu: (selectedMenu) => set({ selectedMenu: selectedMenu }),
 }));
 
 const useMemberStore = create((set) => ({

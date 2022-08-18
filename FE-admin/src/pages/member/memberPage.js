@@ -2,6 +2,8 @@ import { Breadcrumb, Layout, Menu } from "antd";
 import React, { useState, useEffect } from "react";
 import SearchComponent from "./searchComponent";
 import AddComponent from "./addComponent";
+import UploadComponent from "./uploadComponent";
+import { useHelpStore } from "../../states";
 import {
   LaptopOutlined,
   NotificationOutlined,
@@ -11,10 +13,11 @@ import {
 const { Sider, Content } = Layout;
 // http://localhost:8080/api/test
 const App = () => {
-  const [selectedMenu, setSelectedMenu] = useState("menu1Sub1");
+  const { setSelectedMenu, selectedMenu } = useHelpStore();
   const [opendMenu, setOpendMenu] = useState("menu1");
+
   useEffect(() => {
-    // console.log(menus[0]);
+    setSelectedMenu("menu1Sub1");
   }, []);
 
   const handleMenuClick = (e) => {
@@ -68,7 +71,7 @@ const App = () => {
         <Sider className="site-layout-background" width={200}>
           <Menu
             mode="inline"
-            defaultSelectedKeys={selectedMenu}
+            defaultSelectedKeys="menu1Sub1"
             defaultOpenKeys={opendMenu}
             style={{
               height: "100%",
@@ -84,7 +87,12 @@ const App = () => {
         >
           {selectedMenu === "menu1Sub1" && <SearchComponent />}
           {selectedMenu === "menu1Sub2" && <AddComponent />}
-          {selectedMenu === "menu1Sub3" && <div> hello3 </div>}
+          {selectedMenu === "menu1Sub3" && (
+            <div>
+              hello3
+              <UploadComponent />
+            </div>
+          )}
           {selectedMenu === "menu1Sub4" && <div> hello4 </div>}
         </Content>
       </Layout>

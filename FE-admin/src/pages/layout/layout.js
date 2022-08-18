@@ -6,7 +6,6 @@ import { UserOutlined, DownOutlined } from "@ant-design/icons";
 import "./layout.css";
 import { useMemberStore } from "../../states";
 import storage from "../../mylib/storage";
-import Logout from "../../mylib/logout";
 
 const { Header, Content, Footer } = Layout;
 const nav_name = ["/", "member", "tests"];
@@ -42,8 +41,20 @@ const App = () => {
   }));
 
   const handleMenuClick = (e) => {
-    message.info("Click on menu item.");
-    console.log("click", e);
+    switch (e.key) {
+      case "1":
+        message.error("뮤햐햐햐햐햐");
+        break;
+      case "2":
+        message.success([userName]);
+        break;
+      case "3":
+        message.info([userName] + "님 로그아웃 되었습니다.");
+        break;
+      default:
+        message.error("허용되지 않는 동작입니다 : Develop");
+        break;
+    }
   };
 
   const menu = (
@@ -125,7 +136,7 @@ const App = () => {
           textAlign: "center",
         }}
       >
-        Ant Design ©2018 Created by Ant UED
+        ⓒ 2022 직원병동 Corp. All Rights Reserved.
       </Footer>
     </Layout>
   );
