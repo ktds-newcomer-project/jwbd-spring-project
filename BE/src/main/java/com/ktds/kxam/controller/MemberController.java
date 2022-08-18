@@ -4,8 +4,10 @@ import com.ktds.kxam.dto.common.CommonResult;
 import com.ktds.kxam.dto.MemberDTO;
 import com.ktds.kxam.dto.MemberProblemDTO;
 import com.ktds.kxam.dto.common.ListResult;
+import com.ktds.kxam.dto.common.SingleResult;
 import com.ktds.kxam.dto.req.LoginReqDTO;
 import com.ktds.kxam.dto.res.LoginResDTO;
+import com.ktds.kxam.dto.req.MemberSaveReqDTO;
 import com.ktds.kxam.service.MemberProblemService;
 import com.ktds.kxam.service.MemberService;
 import com.ktds.kxam.service.ResponseService;
@@ -27,6 +29,15 @@ public class MemberController {
 
     private final MemberService memberService;
     private final ResponseService responseService;
+
+    @Operation(description = "회원 등록")
+    @PostMapping
+    public @ResponseBody CommonResult input(@RequestBody MemberSaveReqDTO dto) {
+        System.out.println("****************************************");
+        System.out.println("****************************************");
+        memberService.saveMember(dto);
+        return responseService.getSuccessResult();
+    }
 
     @PostMapping("/login")
     public @ResponseBody ListResult<LoginResDTO> doLogin(@RequestBody LoginReqDTO dto) {
