@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ProblemRepo extends JpaRepository<Problem, Long> {
@@ -35,8 +36,12 @@ public interface ProblemRepo extends JpaRepository<Problem, Long> {
     @Modifying
     @Transactional
     @Query("update Problem p set p.reasonOfDelete = :reason where p.pid = :pid")
-    void updateReasonOfDelete(@Param("pid")Long pid, @Param("reason")String reason);
+    void updateReasonOfDelete(@Param("pid") Long pid, @Param("reason") String reason);
 
     @Query("select p.answer from Problem p where p.pid = :pid")
-    String getAnswer(@Param("pid")Long pid);
+    String getAnswer(@Param("pid") Long pid);
+
+    @Query("select p.id from Problem p where p.test.tid = :tid")
+    List<Long> findPidByTestid(@Param("tid") Long tid);
+
 }
