@@ -1,5 +1,5 @@
 #백엔드
-FROM openjdk:8-jdk
+FROM openjdk:11-jdk
 
 WORKDIR /server
 
