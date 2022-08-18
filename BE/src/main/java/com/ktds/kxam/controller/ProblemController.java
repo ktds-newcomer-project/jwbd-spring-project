@@ -3,8 +3,8 @@ package com.ktds.kxam.controller;
 import com.ktds.kxam.dto.*;
 import com.ktds.kxam.dto.common.CommonResult;
 import com.ktds.kxam.dto.common.ListResult;
+import com.ktds.kxam.dto.req.ProblemReqDTO;
 import com.ktds.kxam.dto.res.ProblemResDTO;
-import com.ktds.kxam.entity.Problem;
 import com.ktds.kxam.service.ProblemService;
 import com.ktds.kxam.service.ProblemTagHashService;
 import com.ktds.kxam.service.ResponseService;
@@ -30,7 +30,7 @@ public class ProblemController {
 
     @Operation(description = "문제 등록")
     @PostMapping
-    public @ResponseBody CommonResult saveProblem(@RequestBody ProblemDTO problemDTO) throws Exception{
+    public @ResponseBody CommonResult saveProblem(@RequestBody ProblemReqDTO problemDTO) throws Exception{
         problemService.saveProblem(problemDTO);
         return responseService.getSuccessResult();
     }

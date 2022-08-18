@@ -1,8 +1,9 @@
 package com.ktds.kxam.service;
 
-import com.ktds.kxam.dto.ProblemDTO;
+import com.ktds.kxam.dto.req.ProblemReqDTO;
 import com.ktds.kxam.dto.res.ProblemResDTO;
 import com.ktds.kxam.entity.Problem;
+import com.ktds.kxam.entity.ProblemOption;
 import com.ktds.kxam.exception.ApiMessageException;
 import com.ktds.kxam.repo.ProblemRepo;
 import com.ktds.kxam.repo.TestRepo;
@@ -24,15 +25,17 @@ public class ProblemService {
     private final TestRepo testRepo;
 
     @Transactional
-    public void saveProblem(ProblemDTO problemDTO){
+    public void saveProblem(ProblemReqDTO problemDTO){
         Problem problem = Problem.builder()
                 .answer(problemDTO.getAnswer())
-                .contents(problemDTO.getContents())
                 .title(problemDTO.getTitle())
                 .test(testRepo.findById(problemDTO.getTid()).orElseThrow(()->new ApiMessageException("시험이 존재하지 않습니다.")))
-                .items(problemDTO.getItems())
                 .point(problemDTO.getPoint())
                 .build();
+        for(String s : problemDTO.getItems()){
+            ProblemOption problemOption = ProblemOption.builder().text(s).build();
+            problem.addOption(problemOption);
+        }
         Problem saveResult = problemRepo.save(problem);
         if(saveResult == null) throw new ApiMessageException("문제 등록에 실패하였습니다.");
     }
@@ -71,8 +74,9 @@ public class ProblemService {
         List<Problem> problemList = problemRepo.findProblemsByTestId(tid);
         if(problemList.size() == 0) throw new ApiMessageException("등록된 문제를 찾을 수 없습니다.");
         List<ProblemResDTO> result = new ArrayList<>();
-        for(Problem p : problemList)
+        for(Problem p : problemList) {
             result.add(ProblemResDTO.of(p));
+        }
         return result;
     }
 

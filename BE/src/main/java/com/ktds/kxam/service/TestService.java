@@ -43,6 +43,7 @@ public class TestService {
                 .startTime(testDTO.getStartTime())
                 .endTime(testDTO.getEndTime())
                 .validateKey((testDTO.getValidateKey()))
+                .createdAt(LocalDateTime.now())
                 .build();
 
         Test saveResult = testRepo.save(test);

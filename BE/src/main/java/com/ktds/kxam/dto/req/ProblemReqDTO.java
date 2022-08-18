@@ -1,30 +1,24 @@
-package com.ktds.kxam.dto;
+package com.ktds.kxam.dto.req;
 
-import com.ktds.kxam.entity.Test;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProblemDTO {
+public class ProblemReqDTO {
     private Long pid;
 
     private String title;
 
-    private String contents;
-
     private String answer;
 
-    private String items;
+    private List<String> items;
 
     private String reasonOfDelete;
 
