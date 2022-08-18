@@ -32,10 +32,18 @@ const TestPage = () => {
       
       startTime = res.data.data[0].startTime
       endTime = res.data.data[0].endTime
+
       let date1 = moment();
+      // 현재시간 - 시작시간 = 음수일 때 시간이 부족.
       if (date1.diff(startTime) <= 0) {
         clearInterval(id);
         Swal.fire("아직 시험응시 시간이 아닙니다.")
+        navigate('/home')
+      }
+      // 현재시간 - 종료시간 = 양수일 때 시간이 초과.
+      else if (date1.diff(endTime) > 0) {
+        clearInterval(id);
+        Swal.fire("시험응시 가능 시간이 지났습니다")
         navigate('/home')
       }
     })
