@@ -1,5 +1,6 @@
 package com.ktds.kxam.service;
 
+
 import com.ktds.kxam.dto.MemberDTO;
 import com.ktds.kxam.dto.req.LoginReqDTO;
 import com.ktds.kxam.dto.req.MemberSaveReqDTO;
@@ -102,5 +103,4 @@ public class MemberService {
         }
         return result;
     }
-
 }
