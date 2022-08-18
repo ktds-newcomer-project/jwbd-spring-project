@@ -4,11 +4,11 @@ WORKDIR /FE-admin
 
 COPY ./package.json /FE-admin
 
-RUN npm install
+RUN yarn
 
 COPY . /FE-admin
 
-RUN npm run build
+RUN yarn build
 
 CMD ["npx", "serve", "-s", "build"]
 
