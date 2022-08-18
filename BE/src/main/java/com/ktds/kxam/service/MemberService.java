@@ -50,6 +50,16 @@ public class MemberService {
         return result2;
     }
 
+    public List<MemberDTO> allListNotPage() {
+        List<Member> membermList = memberRepo.findAll();
+        List<MemberDTO> result = new ArrayList<>();
+
+        for (Member m : membermList) {
+            result.add(MemberDTO.of(m));
+        }
+        return result;
+    }
+
     public List<MemberDTO> allList(int page) {
         List<Member> membermList = memberRepo.findAll();
         List<MemberDTO> result = new ArrayList<>();

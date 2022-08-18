@@ -10,18 +10,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
-public interface TestRepo extends JpaRepository<Test, Long>{
+public interface TestRepo extends JpaRepository<Test, Long> {
     @Modifying
     @Transactional
     @Query("update Test t set t.startTime =:startTime where t.tid = :tid ")
-    void updateStartTime(@Param("tid") Long tid, @Param("startTime")LocalDateTime startTime);
+    void updateStartTime(@Param("tid") Long tid, @Param("startTime") LocalDateTime startTime);
 
     @Modifying
     @Transactional
     @Query("update Test t set t.endTime =:endTime where t.tid = :tid ")
-    void updateEndTime(@Param("tid") Long tid, @Param("endTime")LocalDateTime endTime);
+    void updateEndTime(@Param("tid") Long tid, @Param("endTime") LocalDateTime endTime);
 
     @Modifying
     @Transactional
@@ -29,7 +30,7 @@ public interface TestRepo extends JpaRepository<Test, Long>{
     void updateValidateKey(@Param("tid") Long tid, @Param("validateKey") String validateKey);
 
     @Query("select t.validateKey from Test t where t.tid = :tid")
-    String findValidateKeyByTest(@Param("tid")Long tid);
+    String findValidateKeyByTest(@Param("tid") Long tid);
 
     @Query("select distinct mp.problem.test.tid from MemberProblem mp where mp.member.sabun=:sabun")
     List<Long> findByMember(@Param("sabun") String sabun);
@@ -42,4 +43,6 @@ public interface TestRepo extends JpaRepository<Test, Long>{
 
     @Query("select p.point from Problem p where p.pid=:pid")
     int findPointByProblem(@Param("pid") Long pid);
+
+    Optional<Test> findFirstTestByTid(Long tid);
 }

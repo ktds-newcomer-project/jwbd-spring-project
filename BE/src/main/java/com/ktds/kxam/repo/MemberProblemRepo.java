@@ -13,14 +13,17 @@ import java.util.List;
 public interface MemberProblemRepo extends JpaRepository<MemberProblem, Long> {
 
     @Query("select mp from MemberProblem mp where mp.member.sabun=:sabun and mp.problem.test.tid=:tid")
-    List<MemberProblem> findMemberProblemsBySabunAndTestId(@Param("sabun")String sabun, @Param("tid")Long tid);
+    List<MemberProblem> findMemberProblemsBySabunAndTestId(@Param("sabun") String sabun, @Param("tid") Long tid);
 
     @Query("select mp from MemberProblem mp where mp.member.sabun = :sabun")
-    List<MemberProblem> findMemberProblemsBySabun(@Param("sabun")String sabun);
+    List<MemberProblem> findMemberProblemsBySabun(@Param("sabun") String sabun);
 
     @Query("select mp from MemberProblem mp where mp.problem.pid = :pid")
-    List<MemberProblem> findMemberProblemsByProblem(@Param("pid")Long pid);
+    List<MemberProblem> findMemberProblemsByProblem(@Param("pid") Long pid);
 
     @Query("select mp.member from MemberProblem mp where mp.problem.test.tid = :tid")
-    List<Member> findMembersByTest(@Param("tid")Long tid);
+    List<Member> findMembersByTest(@Param("tid") Long tid);
+
+    @Query("SELECT COUNT(*) FROM MemberProblem mp WHERE mp.problem.pid = :pid")
+    int findPidByCountOfPeople(@Param("pid") Long pid);
 }
