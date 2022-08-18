@@ -13,7 +13,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const onClickLogout = () => {
     setUserToken('')
-    localStorage.removeItem('isLogin')
+    localStorage.clear()
     navigate('/')
   }
   const [dropDown, setDropDown] = useState(false);

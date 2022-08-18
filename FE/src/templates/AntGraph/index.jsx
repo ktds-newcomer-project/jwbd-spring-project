@@ -12,35 +12,35 @@ const AntGraph = () => {
   const asyncFetch = async() => {
     await setData([
     {
-        "Score" : 0,
+        "Score" : '0',
         "scales" : 0
     },
     {
-       "Score" : 10,
+       "Score" : '10',
        "scales" : 5
     },
     {
-        "Score" : 20,
+        "Score" : '20',
         "scales" : 2
     },
     {
-        "Score" : 37,
+        "Score" : '30',
         "scales" : 8
     },
     {
-        "Score" : 41,
+        "Score" : '40',
         "scales" : 7
     },
     {
-        "Score" : 53,
+        "Score" : '50',
         "scales" : 10
     },
     {
-        "Score" : 60,
+        "Score" : '60',
         "scales" : 8
     },
     {
-        "Score" : 70,
+        "Score" : '70',
         "scales" : 5
     },
     ])

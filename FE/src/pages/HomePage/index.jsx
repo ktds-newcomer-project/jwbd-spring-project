@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useStore } from '../../states.js';
+import { useStore,useTestInput } from '../../states.js';
 import Slider from "react-slick";
 import Slide1 from '../../assets/carousel4.jpg';
 import Slide2 from '../../assets/carousel5.png';
@@ -17,17 +17,35 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useEffect } from 'react';
+import API from '../../API/API.js';
 
 const HomePage = () => {
     const { userToken } = useStore();
+    const { setTestId, setTestPw } = useTestInput()
     const [inputValue, setInputValue] = useState('');
     const [ boxNum, setBoxNum ] = useState(2);
     const [ alTestBox, setAlTestBox ] = useState([]);
     const [ showMore, setShowMore ] = useState(false);
+    const [ allTest, setAllTest] = useState([]);
 
     const navigate = useNavigate()
 
     useEffect(() => {
+      console.log(userToken)
+
+      //요청부
+      const popo = async() => 
+      await API.get('/test')
+      .then((res) => {
+        // console.log(res.data.data)
+        setAllTest(res.data.data)
+      }).catch((e) => {
+        console.log(e)
+      })
+      popo()
+
+      console.log(allTest)
+
       const testList = [
         { subject: Java, label: 'JAVA WEB 테스트', dueDate: "2022-08-18", testCode: 82256975 },
         { subject: Python,label: 'Python WEB 테스트', dueDate: "2022-08-20", testCode: 82256954 },
@@ -84,17 +102,20 @@ const HomePage = () => {
     const confirmTestPw = () => {
       if (inputValue) {
         console.log(inputValue)
+        const varidateConfirm = allTest.filter(atm => atm.title === inputValue)
+        setTestPw(varidateConfirm[0].validateKey)
+        setTestId(varidateConfirm[0].tid)
         Swal.fire({
             title: '응시 비밀번호 확인',
             html: `<input type="password" id="password" class="swal2-input" placeholder="응시 비밀번호">`,
             confirmButtonText: '시험 시작',
-            focusConfirm: false,
+            allowEnterKey: true,
             preConfirm: () => {
               const password = Swal.getPopup().querySelector('#password').value
               if (!password) {
                 Swal.showValidationMessage(`Please enter login and password`)
               }
-              if (password === '1234') {
+              if (password === varidateConfirm[0].validateKey) {
                 navigate('/test')
               }else {
                 Swal.fire('비밀번호가 올바르지않습니다.')
@@ -122,7 +143,7 @@ const HomePage = () => {
                     <h1>현재 응시 가능한 시험</h1>
                     <Autocomplete
                       id="combo-box-demo"
-                      options={testList}
+                      options={allTest.map((option) => option.title)}
                       inputValue={inputValue}
                       onInputChange={(event, newInputValue) => {
                         setInputValue(newInputValue);
@@ -131,7 +152,7 @@ const HomePage = () => {
                       style={{ marginBottom: "5%"}}
                       renderInput={(params) => <TextField {...params} label="테스트 항목" />}
                       />
-                    <Button onClick={confirmTestPw}style={buttonStyle1} >응시하러가기</Button>
+                    <Button onClick={confirmTestPw} style={buttonStyle1} >응시하러가기</Button>
                 </div>
             </div>
             <div className="home-previous-test-div">
@@ -141,12 +162,13 @@ const HomePage = () => {
                     
                     <Carder cardImage={item.subject} title={item.label} dueDate={item.dueDate} key={index} />
                   ))}
+
+                </div>
                 { (showMore) ? 
                 <button className="more-button" onClick={dpAlTestBox}>더보기</button>
                   :
                   null
                 }
-                </div>
                 
                     {/* <Carder cardImage={Java} title="java 기본시험 1차" dueDate="2022-08-17" />
                     <Carder cardImage={Python} title="파이썬 응용시험 1차" dueDate="2022-08-19" />
