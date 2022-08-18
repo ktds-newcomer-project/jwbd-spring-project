@@ -1,10 +1,13 @@
 package com.ktds.kxam.dto.res;
 
 import com.ktds.kxam.entity.Problem;
+import com.ktds.kxam.entity.ProblemOption;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -19,7 +22,7 @@ public class ProblemResDTO {
 
     private String answer;
 
-    private String items;
+    private Set<ProblemOption> items;
 
     private boolean isDelete;
 
@@ -33,7 +36,6 @@ public class ProblemResDTO {
         return ProblemResDTO.builder()
                 .pid(problem.getPid())
                 .title(problem.getTitle())
-                .contents(problem.getContents())
                 .items(problem.getItems())
                 .answer(problem.getAnswer())
                 .isDelete(problem.isDelete())
