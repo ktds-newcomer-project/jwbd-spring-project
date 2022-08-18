@@ -44,7 +44,7 @@ public class Problem {
     private Test test;
 
     public void addOption(ProblemOption problemOption){
-        problemOption.setOrd(items.size());
+        problemOption.setOrd(items.size()+1);
         items.add(problemOption);
     }
 
