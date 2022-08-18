@@ -29,6 +29,8 @@ public class TestResDTO {
 
     private LocalDateTime endTime;
 
+    private LocalDateTime createdAt;
+
     private String validateKey;
 
     private int joinPeopleCnt;
@@ -42,6 +44,7 @@ public class TestResDTO {
                 .startTime(t.getStartTime())
                 .endTime(t.getEndTime())
                 .validateKey(t.getValidateKey())
+                .createdAt(t.getCreatedAt())
                 .joinPeopleCnt(0)
                 .build();
     }

@@ -2,8 +2,10 @@ package com.ktds.kxam.service;
 
 import com.ktds.kxam.dto.MemberDTO;
 import com.ktds.kxam.dto.req.LoginReqDTO;
+import com.ktds.kxam.dto.req.MemberSaveReqDTO;
 import com.ktds.kxam.dto.res.LoginResDTO;
 import com.ktds.kxam.entity.Member;
+import com.ktds.kxam.entity.MemberRole;
 import com.ktds.kxam.exception.ApiMessageException;
 import com.ktds.kxam.repo.MemberRepo;
 
@@ -14,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.domain.Page;
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,6 +28,24 @@ public class MemberService {
     private final MemberRepo memberRepo;
 
     private static final int pageCnt = 5;
+
+    @Transactional
+    public void saveMember(MemberSaveReqDTO dto) {
+
+        System.out.println("****************************************");
+        System.out.println("****************************************");
+
+        MemberRole role = MemberRole.USER;
+        Member tmp = Member.builder()
+                .name(dto.getName())
+                .sabun(dto.getSabun())
+                .mpw(dto.getMpw())
+                .build();
+        tmp.addRole(role);
+        Member saveResult = memberRepo.save(tmp);
+        if (saveResult == null)
+            throw new ApiMessageException("문제 등록에 실패하였습니다.");
+    }
 
     public List<LoginResDTO> doLogin(LoginReqDTO dto) {
         Optional<Member> result = memberRepo.findFirstMemberBySabun(dto.getId());

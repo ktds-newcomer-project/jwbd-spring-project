@@ -22,7 +22,7 @@ public class ProblemReqDTO {
 
     private String reasonOfDelete;
 
-    private int point;
+    private int point=5;
 
     private Long tid;
 }
