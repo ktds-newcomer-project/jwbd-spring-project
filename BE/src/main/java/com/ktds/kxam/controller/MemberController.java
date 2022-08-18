@@ -33,6 +33,13 @@ public class MemberController {
         return responseService.getListResult(memberService.doLogin(dto));
     }
 
+    @Operation(description = "page를 넣어 나눠서 받음.")
+    @GetMapping("/findAll")
+    public @ResponseBody ListResult<MemberDTO> findByPage()
+            throws Exception {
+        return responseService.getListResult(memberService.allListNotPage());
+    }
+
     // TODO: 권한 Filter?
     @Operation(description = "page를 넣어 나눠서 받음.")
     @GetMapping("/find")
