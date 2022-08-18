@@ -15,9 +15,9 @@ import java.util.Set;
 @ToString(exclude = "roleSet")
 public class Member {
     @Id
-    private Long sabun;
+    private String sabun;
 
-    @Column(nullable = false, length = 8)
+    @Column(nullable = false, length = 25)
     private String mpw;
 
     @Column(nullable = false, length = 5)
@@ -33,9 +33,5 @@ public class Member {
 
     public void clearRoles() {
         this.roleSet.clear();
-    }
-
-    public void changePassword(String mpw) {
-        this.mpw = mpw;
     }
 }

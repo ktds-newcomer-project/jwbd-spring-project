@@ -21,7 +21,13 @@ const useUserInput = create(set => ({
 }),
 }));
 
-export { useStore, useUserInput };
+const useTestInput = create(set => ({
+  testId: '',
+  setTestId : (id) => set({ testId: id}),
+  testPw: '',
+  setTestPw : (pw) => set({ testPw: pw })
+}))
+export { useStore, useUserInput, useTestInput };
 
 /* ------------------------------다른 컴포넌트에서 작성법--------------------------------------  */
 // 다른 Components에서 사용하고자 할 때

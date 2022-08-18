@@ -4,6 +4,9 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -20,13 +23,12 @@ public class Problem {
     private String title;
 
     @Column(nullable = false, columnDefinition = "LONGTEXT")
-    private String contents;
-
-    @Column(nullable = false, columnDefinition = "LONGTEXT")
     private String answer;
 
-    @Column(nullable = false, columnDefinition = "LONGTEXT")
-    private String items;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
+    @OrderBy("ord")
+    private Set<ProblemOption> items = new HashSet<>();
 
     @ColumnDefault("false")
     @Column(nullable = false)
@@ -34,7 +36,20 @@ public class Problem {
 
     private String reasonOfDelete;
 
+    @ColumnDefault("5")
+    @Column(nullable = false)
+    private int point;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Test test;
+
+    public void addOption(ProblemOption problemOption){
+        problemOption.setOrd(items.size()+1);
+        items.add(problemOption);
+    }
+
+    public void clearOption(){
+        items.clear();
+    }
 
 }

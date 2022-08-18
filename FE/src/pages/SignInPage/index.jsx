@@ -6,6 +6,7 @@ import KTDS from '../../assets/ktds.png'
 import TextField from "@mui/material/TextField";
 import Button from '@mui/material/Button';
 import Swal from 'sweetalert2';
+import API from '../../API/API.js';
 
 const SigninPage = () => {
     const { userToken, setUserToken } = useStore();
@@ -21,7 +22,7 @@ const SigninPage = () => {
             })
             
         }
-    })
+    },[])
     
     const [ Id, setId ] = useState('');
     const [ Pw, setPw ] = useState('');
@@ -37,7 +38,7 @@ const SigninPage = () => {
 
 
 
-    function goToLogin() {
+    const goToLogin = async() => {
         if (!Id) {
             Swal.fire({
                 icon: 'error',
@@ -51,10 +52,21 @@ const SigninPage = () => {
                 text: '비밀번호를 입력하세요!!!',
               })
         }
-        setUserToken('1231321411124313')
-        localStorage.setItem("isLogin",true)
-        console.log('로그인완료')
-        navigate('/home')
+        await API.post('/member/login',{
+            "id" : Id,
+            "pwd" : Pw
+        }).then((res) => {
+            console.log(res)
+            console.log('로그인완료')
+            navigate('/home')
+            setUserToken('1231321411124313')
+            localStorage.setItem("isLogin",true)
+            localStorage.setItem("sabun", Id)
+        })
+        .catch((e) => {
+            console.log(e)
+        })
+
         
     }
 
@@ -82,6 +94,7 @@ const SigninPage = () => {
                             placeholder="패스워드를 입력하세요"
                             className="id-textbox"
                             value={Pw}
+                            type="password"
                             onChange={handlePwChange}
                             variant="outlined" />
                 <Button onClick={goToLogin} style={buttonStyle1}  variant="contained">로그인하기</Button>
