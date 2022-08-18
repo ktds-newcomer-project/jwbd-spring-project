@@ -1,4 +1,4 @@
-FROM node:lts-alpine3.14
+FROM node:18.2
 
 WORKDIR /FE-admin
 
@@ -10,6 +10,6 @@ COPY . /FE-admin
 
 RUN yarn build
 
-CMD ["npx", "serve", "-s", "build"]
+CMD ["npx", "serve", "-l", "3001", "-s", "build"]
 
 EXPOSE 3001
