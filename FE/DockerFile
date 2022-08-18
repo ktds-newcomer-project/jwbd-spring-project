@@ -1,0 +1,15 @@
+FROM node:lts-alpine3.14
+
+WORKDIR /front
+
+COPY ./package.json /front
+
+RUN npm install
+
+COPY . /front
+
+RUN npm run build
+
+CMD ["npx", "serve", "-s", "build"]
+
+EXPOSE 3000
