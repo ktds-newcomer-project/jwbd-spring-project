@@ -54,6 +54,7 @@ function App() {
   return (
     <div>
       <BrowserRouter>
+        <meta name="referrer" content="no-referrer-when-downgrade" />
         {!isLogind && <LoginForm LoginFunc={LoginFunc} />}
         {isLogind && <Layout></Layout>}
       </BrowserRouter>
