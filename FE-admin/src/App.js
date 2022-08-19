@@ -33,6 +33,7 @@ function App() {
     axiosInstance
       .post("/api/member/login", login_vo)
       .then((respones) => {
+        console.log(respones);
         let data = respones.data.data[0];
         setIsLogind(true);
         setUserToken(data.token);
