@@ -47,7 +47,7 @@ function App() {
       })
       .catch((error) => {
         setQryString("wrong1");
-        console.log("Status", error);
+        console.log("Status : " + error);
       });
   };
   return (
