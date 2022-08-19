@@ -33,7 +33,11 @@ const TestPage = () => {
       startTime = res.data.data[0].startTime
       endTime = res.data.data[0].endTime
 
+      
       let date1 = moment();
+      console.log(startTime)
+      console.log(endTime)
+      console.log(date1)
       // 현재시간 - 시작시간 = 음수일 때 시간이 부족.
       if (date1.diff(startTime) <= 0) {
         clearInterval(id);
