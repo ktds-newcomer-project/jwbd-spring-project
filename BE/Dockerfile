@@ -7,4 +7,4 @@ WORKDIR /server
 #저는 /backend/spring 폴더 밑에 있어서 배포파일명이 spring-0.0.1-SNAPSHOT.jar 입니다.
 COPY ./build/libs/kxam-0.0.1-SNAPSHOT.jar kxam.jar 
 
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+ENTRYPOINT ["java", "-jar", "kxam.jar"]
