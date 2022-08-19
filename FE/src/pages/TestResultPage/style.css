@@ -1,0 +1,17 @@
+.graph-box-div {
+    display: flex;
+    flex-direction: row;
+    border : 3px solid #a09e9e;
+    border-radius: 10px;
+    width: 70%;
+    margin-left : auto;
+    margin-right: auto;
+    padding : 5%;
+    margin-bottom: 5%;
+}
+.graph-box-content-div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
