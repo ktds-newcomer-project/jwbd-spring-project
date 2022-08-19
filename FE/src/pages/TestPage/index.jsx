@@ -21,19 +21,27 @@ const TestPage = () => {
   const [ testData, setTestData ] = useState();
   const [ isSubmit, setIsSubmit ] = useState(false);
   
+  const checkTestId = testId || sessionStorage.getItem('tempTestId')
+  const checkTestPw = testPw || sessionStorage.getItem('tempTestPw')
+
   let binterter2 = []
 
   
   useEffect(() => {
     let startTime
     let endTime
-    API.get(`/test/info?tid=${testId}`)
+      
+    API.get(`/test/info?tid=${checkTestId}`)
     .then((res) => {
       
       startTime = res.data.data[0].startTime
       endTime = res.data.data[0].endTime
 
+      
       let date1 = moment();
+      console.log(startTime)
+      console.log(endTime)
+      console.log(date1)
       // 현재시간 - 시작시간 = 음수일 때 시간이 부족.
       if (date1.diff(startTime) <= 0) {
         clearInterval(id);
@@ -47,6 +55,7 @@ const TestPage = () => {
         navigate('/home')
       }
     })
+    
     const id = setInterval(() => {
       // console.log('여기',arr)
       let date1 = moment();
@@ -81,14 +90,26 @@ const TestPage = () => {
   
   useEffect(() => {
       
-      API.get(`/problem/find-by/test?tid=${testId}&validateKey=${testPw}`)
+      API.get(`/problem/find-by/test?tid=${checkTestId}&validateKey=${checkTestPw}`)
       .then((res) => {
       console.log(res.data.data)
       setTestData(res.data.data)
       setArr(Array(res.data.data.length).fill([]))
-      } 
+      }
       ).catch((e) => {
-        console.log(e)
+        if (sessionStorage.getItem("tempTestPw") && sessionStorage.getItem("tempTestId"))
+        { 
+          let testId  = sessionStorage.getItem('tempTestId')
+          API.get(`/problem/find-by/test?tid=${testId}&validateKey=${sessionStorage.getItem("tempTestPw")}`)
+          .then((res) => {
+
+            setTestData(res.data.data)
+            setArr(Array(res.data.data.length).fill([]))
+          }).catch((e) => {
+            Swal.fire('올바른 접근이 아닙니다. <br> 다시 확인하고 접속해주세요!')
+            navigate('/home')
+          })
+        }
       })
 
   },[])
@@ -102,7 +123,6 @@ const TestPage = () => {
       focusCancel: true,
     }).then((result) => {
       if(result.isConfirmed) {
-        let coolbox = []
         const tingtong = sessionStorage.getItem('dabji')
         let tingting = JSON.parse(tingtong);
         console.log(tingtong)
@@ -110,7 +130,8 @@ const TestPage = () => {
         tingting.map((item) => {
           let kk = {}
           let arr = item.toString()
-          kk[testData[cc].pid] = arr
+          kk["pid"] = testData[cc].pid
+          kk["answer"] = arr
           binterter2.push(kk)
           console.log('넣어',kk)
           console.log('testdata',testData)

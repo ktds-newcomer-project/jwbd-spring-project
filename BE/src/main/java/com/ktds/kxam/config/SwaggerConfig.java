@@ -21,38 +21,38 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-
 @Configuration
 public class SwaggerConfig {
-//    @Bean
-//    public GroupedOpenApi publicApi() {
-//        return GroupedOpenApi.builder()
-//                .group("V1")
-//                .pathsToMatch("/api/**")
-//                .addOpenApiCustomiser(buildSecurityOpenApi())
-//                .addOpenApiCustomiser(sortTagsAlphabetically())
-//                .build();
-//    }
+    // @Bean
+    // public GroupedOpenApi publicApi() {
+    // return GroupedOpenApi.builder()
+    // .group("V1")
+    // .pathsToMatch("/api/**")
+    // .addOpenApiCustomiser(buildSecurityOpenApi())
+    // .addOpenApiCustomiser(sortTagsAlphabetically())
+    // .build();
+    // }
 
     @Bean
     public OpenAPI springOpenAPI() {
         return new OpenAPI()
-                .addServersItem(new Server().url("http://localhost:8080"))
+                .addServersItem(new Server().url("http://144.24.91.7:8080"))
                 .info(new Info().title("K-XAM")
                         .description("K-XAM 명세서입니다.")
                         .version("V1"));
     }
 
-//    public OpenApiCustomiser buildSecurityOpenApi() {
-//        // jwt token 을 한번 설정하면 header 에 값을 넣어주는 코드
-//        return OpenApi -> OpenApi.addSecurityItem(new SecurityRequirement().addList("jwt token"))
-//                .getComponents().addSecuritySchemes("jwt token", new SecurityScheme()
-//                        .name("X-AUTH-TOKEN")
-//                        .type(SecurityScheme.Type.HTTP)
-//                        .in(SecurityScheme.In.HEADER)
-//                        .bearerFormat("JWT")
-//                        .scheme("bearer"));
-//    }
+    // public OpenApiCustomiser buildSecurityOpenApi() {
+    // // jwt token 을 한번 설정하면 header 에 값을 넣어주는 코드
+    // return OpenApi -> OpenApi.addSecurityItem(new
+    // SecurityRequirement().addList("jwt token"))
+    // .getComponents().addSecuritySchemes("jwt token", new SecurityScheme()
+    // .name("X-AUTH-TOKEN")
+    // .type(SecurityScheme.Type.HTTP)
+    // .in(SecurityScheme.In.HEADER)
+    // .bearerFormat("JWT")
+    // .scheme("bearer"));
+    // }
 
     public OpenApiCustomiser sortTagsAlphabetically() {
         // 알파벳순으로 정렬

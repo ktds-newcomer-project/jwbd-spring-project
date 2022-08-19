@@ -85,7 +85,6 @@ const HomePage = () => {
       }
     }
 
-    
 
     const buttonStyle1 = {color: 'white', backgroundColor : "#66E4BE",width:"25%", height:"6.5%",fontSize:"17px", minWidth : '150px',minHeight: "40px"}
     const slideStyle = {width: '100%'}
@@ -116,6 +115,9 @@ const HomePage = () => {
                 Swal.showValidationMessage(`Please enter login and password`)
               }
               if (password === varidateConfirm[0].validateKey) {
+                sessionStorage.setItem('tempTestPw',varidateConfirm[0].validateKey)
+                sessionStorage.setItem('tempTestId',varidateConfirm[0].tid)
+
                 navigate('/test')
               }else {
                 Swal.fire('비밀번호가 올바르지않습니다.')
