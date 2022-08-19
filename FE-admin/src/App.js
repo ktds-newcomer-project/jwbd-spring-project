@@ -53,6 +53,7 @@ function App() {
   };
   return (
     <div>
+      <meta name="referrer" content="strict-origin-when-cross-origin"></meta>
       <BrowserRouter>
         {!isLogind && <LoginForm LoginFunc={LoginFunc} />}
         {isLogind && <Layout></Layout>}
