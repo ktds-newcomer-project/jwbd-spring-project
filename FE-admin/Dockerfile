@@ -4,12 +4,12 @@ WORKDIR /FE-admin
 
 COPY ./package.json /FE-admin
 
-RUN yarn
+RUN npm install
 
 COPY . /FE-admin
 
-RUN yarn build
+RUN npm run build
 
-CMD ["npx", "serve", "-l", "3001", "-s", "build"]
+CMD ["npx", "serve", "-s", "build"]
 
-EXPOSE 3001
+EXPOSE 4400
