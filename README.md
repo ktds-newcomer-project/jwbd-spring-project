@@ -1,6 +1,6 @@
 # 🌐 K-XAM : HR 관리를 위한 업무 자동화 시스템
 
-![image-20220819105927208](C:\Project\Doc\MD\image-20220819105927208.png)
+![image-20220819112813952](https://user-images.githubusercontent.com/89330527/185530781-d6f25fdc-13ff-4345-8442-5ed470a5ff59.png)
 
 
 
@@ -29,11 +29,12 @@
 
 ##  서비스 FLOW
 
-![image-20220819112813952](C:\Project\Doc\MD\image-20220819112813952.png)
+![image-20220819112748603](https://user-images.githubusercontent.com/89330527/185530916-c38db537-2e1a-48e9-9b3d-3844e3b526eb.png)
 
-![image-20220819112748603](C:\Project\Doc\MD\image-20220819112748603.png)
+![image-20220819112723578](https://user-images.githubusercontent.com/89330527/185530977-2a7d222a-32b4-4a5e-b732-6e4199aa13cc.png)
 
-![image-20220819112723578](C:\Project\Doc\MD\image-20220819112723578.png)
+![image-20220819112813952](https://user-images.githubusercontent.com/89330527/185531085-395f3b0a-90d7-4599-8ab1-46972303e44c.png)
+
 
 
 ---
