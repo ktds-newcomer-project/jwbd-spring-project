@@ -1,4 +1,4 @@
-FROM node:18.2
+FROM node:lts-alpine3.14
 
 WORKDIR /FE-admin
 

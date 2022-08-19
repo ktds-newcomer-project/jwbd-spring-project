@@ -4,6 +4,7 @@ import { makeUseAxios } from "axios-hooks";
 export const axiosInstance = Axios.create({
   headers: {
     "Content-Type": "application/json",
+    Accept: "application/json",
   },
 });
 
