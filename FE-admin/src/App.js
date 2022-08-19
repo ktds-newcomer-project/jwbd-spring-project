@@ -47,7 +47,6 @@ function App() {
       })
       .catch((error) => {
         setQryString("wrong1");
-        console.log("Data", error.response.data);
         console.log("Status", error.response.status);
         console.log("Header", error.response.headers);
         console.log("Request", error.request);
