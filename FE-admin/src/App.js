@@ -47,11 +47,7 @@ function App() {
       })
       .catch((error) => {
         setQryString("wrong1");
-        console.log("Status", error.response.status);
-        console.log("Header", error.response.headers);
-        console.log("Request", error.request);
-        console.log("Error", error.message);
-        console.log("Conifg", error.config);
+        console.log("Status", error);
       });
   };
   return (
